@@ -8,3 +8,11 @@ class NoticiaAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Noticia, NoticiaAdmin)
+
+
+class ParceiroAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome')
+    list_display_links = ('id', 'nome')
+
+
+admin.site.register(models.Parceiro, ParceiroAdmin)
