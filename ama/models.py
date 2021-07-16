@@ -19,3 +19,20 @@ class Parceiro(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+class Mensagem(models.Model):
+    nome = models.CharField(max_length=150)
+    email = models.EmailField(max_length=200)
+    telefone = models.CharField(max_length=20)
+    assunto = models.CharField(max_length=150)
+    mensagem = models.TextField()
+    data = models.DateField(default=timezone.now)
+    lida = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.assunto
+
+    class Meta:
+        verbose_name = 'Mensagem'
+        verbose_name_plural = 'Mensagens'

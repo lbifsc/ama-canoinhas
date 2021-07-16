@@ -16,3 +16,14 @@ class ParceiroAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Parceiro, ParceiroAdmin)
+
+
+class MensagemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nome', 'email', 'telefone',
+                    'assunto', 'data', 'lida',)
+    list_display_links = ('id', 'nome', 'email',
+                          'telefone', 'assunto', 'data',)
+    list_editable = ('lida', )
+
+
+admin.site.register(models.Mensagem, MensagemAdmin)
