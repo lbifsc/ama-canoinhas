@@ -5,3 +5,8 @@
 .asteriskField::before {
     content: " ";
 }
+
+#nav-image {
+    width: auto;
+    height: 15vh;
+}
