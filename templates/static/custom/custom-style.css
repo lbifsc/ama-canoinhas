@@ -1,0 +1,7 @@
+.asteriskField {
+    color: red;
+}
+
+.asteriskField::before {
+    content: " ";
+}
