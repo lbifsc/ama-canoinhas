@@ -5,4 +5,4 @@ from django.shortcuts import render
 
 class Index(View):
     def get(self, *args, **kwargs):
-        return HttpResponse('<h1>Olá mundo</h1>')
+        return render(self.request, 'ama/index.html')
