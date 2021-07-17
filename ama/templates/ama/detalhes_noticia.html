@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <section>
+        <div class="container mt-5 mb-5">
+            <div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1>{{ noticia }}</h1>
+                    </div>
+                    <div class="col-lg-12 text-center mt-5">
+                        <img src="{{ noticia.capa.url }}" alt="{{ noticia }}" class="img-fluid">
+                    </div>
+                    <div class="col-auto text-left mt-5">
+                        <p>Públicado em {{ noticia.data_publicacao }}</p>
+                    </div>
+                    <div class="col-lg-12 text-justify">
+                        <p>{{ noticia.texto }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock conteudo %}

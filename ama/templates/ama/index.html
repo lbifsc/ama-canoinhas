@@ -10,10 +10,10 @@
                 {% if ultimas_noticias.count >= 2 %}
                     <ol class="carousel-indicators">
                         {% for i in ultimas_noticias %}
-                            {% if not i == ultimas_noticias.0 %}
-                                <li data-target="#carouselNoticias" data-slide-to="{{ i }}">{{ i }}</li>
+                            {% if not forloop.first %}
+                                <li data-target="#carouselNoticias" data-slide-to="{{ forloop }}"></li>
                             {% else %}
-                                <li data-target="#carouselNoticias" data-slide-to="{{ i }}" class="active">{{ i }}</li>
+                                <li data-target="#carouselNoticias" data-slide-to="{{ forloop }}" class="active"></li>
                             {% endif %}
                         {% endfor %}
                     </ol>
@@ -26,7 +26,7 @@
                                 <img class="img-fluid d-block w-100" src="{{ noticia.capa.url }}" alt="{{ noticia }}">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h4 class="text-black">{{noticia }}</h4>
-                                    <a href="" class="btn btn-primary">Saiba Mais</a>
+                                    <a href="{% url 'ama:detalhes_noticia' noticia.slug %}" class="btn btn-primary">Saiba Mais</a>
                                 </div>
                             </div>
                         {% else %}
@@ -34,7 +34,7 @@
                                 <img class="img-fluid d-block w-100" src="{{ noticia.capa.url }}" alt="{{ noticia }}">
                                 <div class="carousel-caption d-none d-md-block">
                                     <h4 class="text-black">{{ noticia }}</h4>
-                                    <a href="" class="btn btn-primary">Saiba Mais</a>
+                                    <a href="{% url 'ama:detalhes_noticia' noticia.slug %}" class="btn btn-primary">Saiba Mais</a>
                                 </div>
                             </div>
                         {% endif %}

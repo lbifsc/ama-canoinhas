@@ -3,7 +3,7 @@ from . import models
 from django.views import View
 from django.contrib import messages
 from django.views.generic import DetailView
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http.response import HttpResponse
 
 
@@ -44,16 +44,27 @@ class EscreverNoticia(View):
         if not self.noticia_form.is_valid():
             return self.renderizar
 
-        self.noticia_form.save()
-        print('\n{}\n'.format(self.noticia_form.cleaned_data.get('titulo')))
+        noticia = self.noticia_form.save()
+        print('\n{}\n'.format(noticia.slug))
 
         messages.success = (self.request, 'Notícia salva com sucesso!')
 
-        return HttpResponse('Notícia')
+        return redirect('ama:detalhes_noticia', slug=noticia.slug)
 
 
 class DetalhesNoticia(DetailView):
-    pass
+    model = models.Noticia
+    template_name = 'ama/detalhes_noticia.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['noticia'] = get_object_or_404(
+            models.Noticia,
+            slug=self.kwargs.get('slug'),
+            publicado=True,
+        )
+
+        return context
 
 
 class Sobre(View):
