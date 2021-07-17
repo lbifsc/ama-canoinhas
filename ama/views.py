@@ -1,12 +1,29 @@
 from . import forms
+from . import models
 from django.views import View
-from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.views.generic import DetailView
+from django.shortcuts import redirect, render
 
 
 class Index(View):
+    template_name = 'ama/index.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        contexto = {
+            'ultimas_noticias': models.Noticia.objects.filter(publicado=True).order_by('data_publicacao')[:5]
+        }
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
     def get(self, *args, **kwargs):
-        return render(self.request, 'ama/index.html')
+        return self.renderizar
+
+
+class DetalhesNoticia(DetailView):
+    pass
 
 
 class Sobre(View):
