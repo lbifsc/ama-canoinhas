@@ -10,3 +10,7 @@
     width: auto;
     height: 15vh;
 }
+
+.text-black {
+    color: rgb(0, 0, 0);
+}
