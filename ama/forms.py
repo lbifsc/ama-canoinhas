@@ -1,8 +1,7 @@
 from . import models
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.bootstrap import PrependedText
-from crispy_forms.layout import ButtonHolder, Layout, Row, Column, HTML, Submit
+from crispy_forms.layout import ButtonHolder, Layout, Row, Column, Submit
 
 
 class MensagemForm(forms.ModelForm):
@@ -62,5 +61,54 @@ class MensagemForm(forms.ModelForm):
             ),
             ButtonHolder(
                 Submit('submit', 'enviar', css_class='mb-2'),
+            ),
+        )
+
+
+class NoticiaForm(forms.ModelForm):
+    titulo = forms.CharField(
+        label='Título',
+        max_length=255,
+        required=True,
+    )
+
+    capa = forms.ImageField(
+        required=True
+    )
+
+    publicado = forms.BooleanField(
+        required=False
+    )
+
+    texto = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 10}),
+        required=True
+    )
+
+    class Meta:
+        model = models.Noticia
+        fields = ['titulo', 'capa', 'publicado', 'texto', ]
+
+    def __init__(self, *args, **kwargs):
+        super(NoticiaForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.method = 'POST'
+
+        self.helper.layout = Layout(
+            Row(
+                Column('titulo', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('capa', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('publicado', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('texto', css_class='col-lg-12'),
+            ),
+            ButtonHolder(
+                Submit('submit', 'Salvar', css_class='mb-3')
             ),
         )
