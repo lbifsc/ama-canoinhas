@@ -13,4 +13,6 @@ urlpatterns = [
          name='detalhes_noticia'),
     path('sobre/', views.Sobre.as_view(), name='sobre'),
     path('contato/', views.Mensagem.as_view(), name='contato'),
+    path('adicionar_parceiro/', views.AdicionarParceiro.as_view(),
+         name='adicionar_parceiro'),
 ]

@@ -1,7 +1,8 @@
+from django.db.models import fields
 from . import models
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import ButtonHolder, Layout, Row, Column, Submit
+from crispy_forms.layout import Button, ButtonHolder, Layout, Row, Column, Submit
 
 
 class MensagemForm(forms.ModelForm):
@@ -67,12 +68,13 @@ class MensagemForm(forms.ModelForm):
 
 class NoticiaForm(forms.ModelForm):
     titulo = forms.CharField(
-        label='Título',
+        label='Título:',
         max_length=255,
         required=True,
     )
 
     capa = forms.ImageField(
+        label='Capa:',
         required=True
     )
 
@@ -81,6 +83,7 @@ class NoticiaForm(forms.ModelForm):
     )
 
     texto = forms.CharField(
+        label='Texto:',
         widget=forms.Textarea(attrs={'rows': 10}),
         required=True
     )
@@ -110,5 +113,32 @@ class NoticiaForm(forms.ModelForm):
             ),
             ButtonHolder(
                 Submit('submit', 'Salvar', css_class='mb-3')
+            ),
+        )
+
+
+class ParceiroForm(forms.ModelForm):
+    nome = forms.CharField(max_length=150, required=True, label='Nome:',)
+    logo = forms.ImageField(required=True, label='Logo:',)
+
+    class Meta:
+        model = models.Parceiro
+        fields = ['nome', 'logo', ]
+
+    def __init__(self, *args, **kwargs):
+        super(ParceiroForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.method = 'POST'
+
+        self.helper.layout = Layout(
+            Row(
+                Column('nome', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('logo', css_class='col-lg-12'),
+            ),
+            ButtonHolder(
+                Submit('submit', 'Salvar')
             ),
         )

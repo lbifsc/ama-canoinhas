@@ -25,7 +25,9 @@
                             <div class="carousel-item active">
                                 <img class="img-fluid d-block w-100" src="{{ noticia.capa.url }}" alt="{{ noticia }}">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h4 class="text-black">{{noticia }}</h4>
+                                    <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                                        <h4 class="text-black">{{ noticia }}</h4>
+                                    </a>
                                     <a href="{% url 'ama:detalhes_noticia' noticia.slug %}" class="btn btn-primary">Saiba Mais</a>
                                 </div>
                             </div>
@@ -33,7 +35,9 @@
                             <div class="carousel-item">
                                 <img class="img-fluid d-block w-100" src="{{ noticia.capa.url }}" alt="{{ noticia }}">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <h4 class="text-black">{{ noticia }}</h4>
+                                    <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                                        <h4 class="text-black">{{ noticia }}</h4>
+                                    </a>
                                     <a href="{% url 'ama:detalhes_noticia' noticia.slug %}" class="btn btn-primary">Saiba Mais</a>
                                 </div>
                             </div>
@@ -55,79 +59,37 @@
             </div>
         </div>
     </section>
-    <section class="features mt-5">
+    <section class="mt-5">
         <div class="container">
+            <div id="id-parceiros" class="row">
+                <div class="col-auto">
+                    <div class="about-content mt-4 mt-lg-0">
+                        <h2 class="title-color">Nossos Parceiros</h2>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="feature-block d-lg-flex">
-                        <div class="feature-item mb-5 mb-lg-0">
-                            <div class="feature-icon mb-4">
-                                <i class="icofont-surgeon-alt"></i>
+                    <div class="row">
+                        {% for parceiro in parceiros %}
+                            <div class="col-lg-4 mb-3">
+                                <div class="card shadow-lg">
+                                    <div class="card-header parceiro-header">
+                                        <h4>{{ parceiro }}</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <img src="{{ parceiro.logo.url }}" alt="{{ parceiro }}" class="img-fluid parceiro-body">
+                                    </div>
+                                </div>
                             </div>
-                            <span>24 Hours Service</span>
-                            <h4 class="mb-3">Online Appoinment</h4>
-                            <p class="mb-4">Get ALl time support for emergency.We have introduced the principle of
-                                family medicine.</p>
-                            <a href="appoinment.html" class="btn btn-main btn-round-full">Make a appoinment</a>
-                        </div>
-
-                        <div class="feature-item mb-5 mb-lg-0">
-                            <div class="feature-icon mb-4">
-                                <i class="icofont-ui-clock"></i>
-                            </div>
-                            <span>Timing schedule</span>
-                            <h4 class="mb-3">Working Hours</h4>
-                            <ul class="w-hours list-unstyled">
-                                <li class="d-flex justify-content-between">Sun - Wed : <span>8:00 - 17:00</span></li>
-                                <li class="d-flex justify-content-between">Thu - Fri : <span>9:00 - 17:00</span></li>
-                                <li class="d-flex justify-content-between">Sat - sun : <span>10:00 - 17:00</span></li>
-                            </ul>
-                        </div>
-
-                        <div class="feature-item mb-5 mb-lg-0">
-                            <div class="feature-icon mb-4">
-                                <i class="icofont-support"></i>
-                            </div>
-                            <span>Emegency Cases</span>
-                            <h4 class="mb-3">1-800-700-6200</h4>
-                            <p>Get ALl time support for emergency.We have introduced the principle of family
-                                medicine.Get Conneted with us for any urgency .</p>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <section class="section about">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="about-img">
-                        <img src="images/about/img-1.jpg" alt="" class="img-fluid">
-                        <img src="images/about/img-2.jpg" alt="" class="img-fluid mt-4">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="about-img mt-4 mt-lg-0">
-                        <img src="images/about/img-3.jpg" alt="" class="img-fluid">
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="about-content pl-4 mt-4 mt-lg-0">
-                        <h2 class="title-color">Personal care <br>& healthy living</h2>
-                        <p class="mt-4 mb-5">We provide best leading medicle service Nulla perferendis veniam deleniti
-                            ipsum officia dolores repellat laudantium obcaecati neque.</p>
-
-                        <a href="service.html" class="btn btn-main-2 btn-round-full btn-icon">Services<i
-                                class="icofont-simple-right ml-3"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="cta-section ">
+    <section class="cta-section mt-5">
         <div class="container">
             <div class="cta position-relative">
                 <div class="row">

@@ -14,7 +14,8 @@ class Index(View):
         super().setup(*args, **kwargs)
 
         contexto = {
-            'ultimas_noticias': models.Noticia.objects.filter(publicado=True).order_by('data_publicacao')[:5]
+            'ultimas_noticias': models.Noticia.objects.filter(publicado=True).order_by('data_publicacao')[:5],
+            'parceiros': models.Parceiro.objects.all(),
         }
 
         self.renderizar = render(self.request, self.template_name, contexto)
@@ -100,3 +101,31 @@ class Mensagem(View):
         )
 
         return redirect('ama:contato')
+
+
+class AdicionarParceiro(View):
+    template_name = 'ama/adicionar_parceiro.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        contexto = {
+            'parceiro_form': forms.ParceiroForm(self.request.POST or None, self.request.FILES or None)
+        }
+
+        self.parceiro_form = contexto['parceiro_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.parceiro_form.is_valid():
+            return self.renderizar
+
+        self.parceiro_form.save()
+
+        messages.success(self.request, 'Parceiro adicionado com sucesso!')
+
+        return redirect('ama:adicionar_parceiro')

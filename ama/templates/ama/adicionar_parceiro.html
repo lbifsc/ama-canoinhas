@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+    <section class="mt-5 mb-5">
+        <div class="container">
+            <h2 class="title-color">Adicionar Parceiro</h2>
+
+            {% crispy parceiro_form %}
+        </div>
+    </section>
+{% endblock conteudo %}

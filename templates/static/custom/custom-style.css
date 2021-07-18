@@ -14,3 +14,21 @@
 .text-black {
     color: rgb(0, 0, 0);
 }
+
+.card {
+    border: none;
+}
+
+.card-header {
+    background-color: white;
+}
+
+.parceiro-header h4 {
+    color: #223a66;
+    margin-bottom: 0px;
+}
+
+.parceiro-body {
+    width: 100%;
+    height: auto;
+}
