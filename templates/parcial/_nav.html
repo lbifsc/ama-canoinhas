@@ -6,54 +6,59 @@
             <img id="nav-image" src="{% static 'images/ama-icon.png' %}" alt="" class="img-fluid"">
         </a>
 
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
-            aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
+        <button class=" navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
+                aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icofont-navigation-menu"></span>
-        </button>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarmain">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ama:index' %}">Início</a>
-                </li>
+            <div class="collapse navbar-collapse" id="navbarmain">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ama:index' %}">Início</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Notícias</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notícias</a>
+                    </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="dropdown-quemsomos" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Quem Somos<i class="icofont-thin-down"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown-quemsomos">
-                        <li><a class="dropdown-item" href="#">O que é a AMA?</a></li>
-                        <li><a class="dropdown-item" href="#">Como surgiu</a></li>
-                        <li><a class="dropdown-item" href="#">O que oferecemos</a></li>
-                        <li><a class="dropdown-item" href="#">Sobre o autismo</a></li>
-                    </ul>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#parceiros-section">Parceiros</a>
+                    </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown-acoes" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Ações<i class="icofont-thin-down"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown-acoes">
-                        <li><a class="dropdown-item" href="#">Fotos</a></li>
-                        <li><a class="dropdown-item" href="#">Eventos</a></li>
-                        <li><a class="dropdown-item" href="#">Projetos</a></li>
-                    </ul>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="dropdown-quemsomos" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Quem Somos<i class="icofont-thin-down"></i></a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-quemsomos">
+                            <li><a class="dropdown-item" href="#ama-section">O que é a AMA?</a></li>
+                            <li><a class="dropdown-item" href="#surgiu-section">Como surgiu</a></li>
+                            <li><a class="dropdown-item" href="#oferecemos-section">O que oferecemos</a></li>
+                            <li><a class="dropdown-item" href="#autismo-section">Sobre o autismo</a></li>
+                        </ul>
+                    </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Fazer Parte</a>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown-acoes"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ações<i
+                                class="icofont-thin-down"></i></a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown-acoes">
+                            <li><a class="dropdown-item" href="#">Fotos</a></li>
+                            <li><a class="dropdown-item" href="#">Eventos</a></li>
+                            <li><a class="dropdown-item" href="#">Projetos</a></li>
+                        </ul>
+                    </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'ama:contato' %}">Contato</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Fazer Parte</a>
+                    </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Recomendações</a>
-                </li>
-            </ul>
-        </div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'ama:contato' %}">Contato</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Recomendações</a>
+                    </li>
+                </ul>
+            </div>
     </div>
 </nav>

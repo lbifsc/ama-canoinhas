@@ -11,6 +11,10 @@
     height: 15vh;
 }
 
+.carousel-inner img {
+    max-height: 500px;
+}
+
 .text-black {
     color: rgb(0, 0, 0);
 }
@@ -31,4 +35,12 @@
 .parceiro-body {
     width: 100%;
     height: auto;
+}
+
+.section-top {
+    padding-top: 50px;
+}
+
+.section-title {
+    margin-bottom: 0px;
 }
