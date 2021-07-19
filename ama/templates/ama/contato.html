@@ -2,9 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
-    <section>
-        <div class="container">
-            <h1>Contato</h1>
+    <section class="section-top">
+        <div class="container mb-5">
+            <div class="section-title">
+                <h2>Contato</h2>
+            </div>
 
             {% crispy mensagem-form %}    
         </div>

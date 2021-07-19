@@ -1,8 +1,7 @@
-from django.db.models import fields
 from . import models
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Button, ButtonHolder, Layout, Row, Column, Submit
+from crispy_forms.layout import ButtonHolder, Layout, Row, Column, Submit
 
 
 class MensagemForm(forms.ModelForm):
@@ -33,7 +32,7 @@ class MensagemForm(forms.ModelForm):
     mensagem = forms.CharField(
         required=True,
         widget=forms.Textarea(attrs={'rows': 6}),
-        label='Mensagem',
+        label='Mensagem:',
     )
 
     class Meta:
@@ -61,7 +60,7 @@ class MensagemForm(forms.ModelForm):
                 Column('mensagem', css_class='col-lg-12'),
             ),
             ButtonHolder(
-                Submit('submit', 'enviar', css_class='mb-2'),
+                Submit('submit', 'enviar'),
             ),
         )
 
