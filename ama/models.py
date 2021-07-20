@@ -10,7 +10,7 @@ class Noticia(models.Model):
     publicado = models.BooleanField(default=False)
     data_publicacao = models.DateField(
         blank=True, null=True, verbose_name='Data de publicação')
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, max_length=100)
 
     def save(self, *args, **kwargs):
         super().save()

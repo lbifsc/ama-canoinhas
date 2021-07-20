@@ -1,4 +1,4 @@
-from django.core import paginator
+import os
 from . import forms
 from . import models
 from django.views import View
@@ -47,17 +47,58 @@ class EscreverNoticia(View):
             return self.renderizar
 
         noticia = self.noticia_form.save()
-        print('\n{}\n'.format(noticia.slug))
 
         messages.success = (self.request, 'Notícia salva com sucesso!')
 
         return redirect('ama:detalhes_noticia', slug=noticia.slug)
 
 
+class EditarNoticia(View):
+    template_name = 'ama/escrever_noticia.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        self.noticia = get_object_or_404(
+            models.Noticia, pk=self.kwargs.get('pk'))
+        self.capa_atual_path = self.noticia.capa.path
+
+        contexto = {
+            'noticia_form': forms.NoticiaForm(
+                self.request.POST or None,
+                self.request.FILES or None,
+                instance=self.noticia,
+            ),
+        }
+
+        self.noticia_form = contexto['noticia_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.noticia_form.is_valid():
+            return self.renderizar
+
+        self.noticia.titulo = self.noticia_form['titulo'].value()
+        self.noticia.publicado = self.noticia_form['publicado'].value()
+        self.noticia.texto = self.noticia_form['texto'].value()
+
+        if self.request.FILES.get('capa'):
+            self.noticia.capa = self.request.FILES.get('capa')
+            os.remove(self.capa_atual_path)
+
+        self.noticia.save()
+
+        return redirect('ama:detalhes_noticia', slug=self.noticia.slug)
+
+
 class ListarNoticias(ListView):
     model = models.Noticia
     template_name = 'ama/listar_noticias.html'
-    paginate_by = 2
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

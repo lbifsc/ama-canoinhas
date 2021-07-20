@@ -9,6 +9,8 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('escrever_noticia/', views.EscreverNoticia.as_view(),
          name='escrever_noticia'),
+    path('editar_noticia/<int:pk>', views.EditarNoticia.as_view(),
+         name='editar_noticia'),
     path('detalhes_noticia/<slug>', views.DetalhesNoticia.as_view(),
          name='detalhes_noticia'),
     path('listar_noticias/', view=views.ListarNoticias.as_view(),
