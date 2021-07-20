@@ -1,6 +1,7 @@
 from . import models
 from django import forms
 from crispy_forms.helper import FormHelper
+from django_summernote.widgets import SummernoteWidget
 from crispy_forms.layout import ButtonHolder, Layout, Row, Column, Submit
 
 
@@ -83,7 +84,7 @@ class NoticiaForm(forms.ModelForm):
 
     texto = forms.CharField(
         label='Texto:',
-        widget=forms.Textarea(attrs={'rows': 10}),
+        widget=SummernoteWidget(),
         required=True
     )
 
