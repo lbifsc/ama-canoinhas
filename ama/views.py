@@ -1,7 +1,9 @@
+from django.core import paginator
 from . import forms
 from . import models
 from django.views import View
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -55,21 +57,29 @@ class EscreverNoticia(View):
 class ListarNoticias(ListView):
     model = models.Noticia
     template_name = 'ama/listar_noticias.html'
-    paginate_by = 15
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        noticias = models.Noticia.objects.filter(
-            publicado=True)
+
+        noticias = models.Noticia.objects.filter(publicado=True)
+        paginator = Paginator(None, self.paginate_by)
+        is_paginated = True
+
+        if noticias.count() <= self.paginate_by:
+            is_paginated = False
 
         ordem = self.request.GET.get('ordena-noticias')
 
         if ordem == 'Mais antigas':
-            context['noticias'] = noticias.order_by('-data_publicacao')
+            paginator.object_list = noticias.order_by('data_publicacao')
             context['ordenado'] = True
         else:
-            context['noticias'] = noticias.order_by('data_publicacao')
+            paginator.object_list = noticias.order_by('-data_publicacao')
             context['ordenado'] = False
+
+        context['is_paginated'] = is_paginated
+        context['page_obj'] = paginator.get_page(self.request.GET.get('page'))
 
         return context
 
