@@ -59,8 +59,17 @@ class ListarNoticias(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['noticias'] = models.Noticia.objects.filter(
-            publicado=True).order_by('data_publicacao')
+        noticias = models.Noticia.objects.filter(
+            publicado=True)
+
+        ordem = self.request.GET.get('ordena-noticias')
+
+        if ordem == 'Mais antigas':
+            context['noticias'] = noticias.order_by('-data_publicacao')
+            context['ordenado'] = True
+        else:
+            context['noticias'] = noticias.order_by('data_publicacao')
+            context['ordenado'] = False
 
         return context
 

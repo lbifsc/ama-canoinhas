@@ -10,14 +10,22 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-lg-auto form-inline">
-                    <div class="form-group">
-                        <label for="id-ordena-noticias">Ordedar por:</label>
-                        <select class="ml-2 form-control" name="ordena-noticias" id="id-ordena-noticias">
-                            <option value="Mais recentes">Mais recentes</option>
-                            <option value="Mais antingas">Mais antigas</option>
-                        </select>
-                    </div>
+                <div class="col-lg-auto">
+                    <form action="" method="get" class="form-inline">
+                        <div class="form-group">
+                            <label for="id-ordena-noticias">Ordedar por:</label>
+                            <select class="ml-2 form-control" name="ordena-noticias" id="id-ordena-noticias"
+                                onchange="this.form.submit()">
+                                {% if ordenado %}
+                                    <option value="Mais recentes">Mais recentes</option>
+                                    <option value="Mais antigas" selected>Mais antigas</option>
+                                {% else %}
+                                    <option value="Mais recentes">Mais recentes</option>
+                                    <option value="Mais antigas">Mais antigas</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="row">
