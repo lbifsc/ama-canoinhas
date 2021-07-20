@@ -2,9 +2,8 @@ from . import forms
 from . import models
 from django.views import View
 from django.contrib import messages
-from django.views.generic import DetailView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http.response import HttpResponse
 
 
 class Index(View):
@@ -51,6 +50,19 @@ class EscreverNoticia(View):
         messages.success = (self.request, 'Notícia salva com sucesso!')
 
         return redirect('ama:detalhes_noticia', slug=noticia.slug)
+
+
+class ListarNoticias(ListView):
+    model = models.Noticia
+    template_name = 'ama/listar_noticias.html'
+    paginate_by = 15
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['noticias'] = models.Noticia.objects.filter(
+            publicado=True).order_by('data_publicacao')
+
+        return context
 
 
 class DetalhesNoticia(DetailView):

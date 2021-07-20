@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <section class="section-top mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center section-title">
+                    <h2>Notícias</h2>
+                    <div class="divider mx-auto my-4"></div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-auto form-inline">
+                    <div class="form-group">
+                        <label for="id-ordena-noticias">Ordedar por:</label>
+                        <select class="ml-2 form-control" name="ordena-noticias" id="id-ordena-noticias">
+                            <option value="Mais recentes">Mais recentes</option>
+                            <option value="Mais antingas">Mais antigas</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for noticia in noticias %}
+                    <div class="col-lg-4 mb-5">
+                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                            <div>
+                                <div class="card shadow-lg align-items-center">
+                                    <div class="card-header">
+                                        <img src="{{ noticia.capa.url }}" alt="{{ noticia }}" 
+                                            class="img-fluid capa-noticia">
+                                    </div>
+                                    <div class="card-body text-justify">
+                                        <p>{{ noticia.data_publicacao }}</p>
+                                        <hr>
+                                        <h5 class="h5-hover">{{ noticia }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock conteudo %}

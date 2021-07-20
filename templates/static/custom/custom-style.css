@@ -48,3 +48,27 @@
 .navnar-brand img {
     width: 100%;
 }
+
+.capa-noticia {
+    height: 150px;
+    max-width: 100%;
+}
+
+a p {
+    color: rgb(0, 0, 0);
+}
+
+a:hover h4 {
+    color: #e12454;
+    text-decoration: none;
+}
+
+.h5-hover:hover {
+    color: #e12454;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: #00ff00;
+    text-decoration: none;
+}
