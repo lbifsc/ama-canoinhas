@@ -59,6 +59,20 @@ MIDDLEWARE = [
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+SUMMERNOTE_THEME = 'bs4'
+
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+        'width': '100%',
+        'height': '580',
+        'lang': 'pt-BR',
+    },
+    'disable_attachment': True,
+}
+
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [

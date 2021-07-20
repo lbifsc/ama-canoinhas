@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('escrever_noticia/', views.EscreverNoticia.as_view(),
          name='escrever_noticia'),
+    # TODO: Alterar id para slug na url de editar notícia
     path('editar_noticia/<int:pk>', views.EditarNoticia.as_view(),
          name='editar_noticia'),
     path('detalhes_noticia/<slug>', views.DetalhesNoticia.as_view(),

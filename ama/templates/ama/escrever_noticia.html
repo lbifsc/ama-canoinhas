@@ -2,25 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
-<section>
-    <div class="container">
-        <h1>Notícia</h1>
+    <section>
+        <div class="container">
+            <h1>Notícia</h1>
 
-        {% crispy noticia_form %}
-    </div>
-</section>
+            {% crispy noticia_form %}
+        </div>
+    </section>
 {% endblock conteudo %}
-
-{% block scripts %}
-<script>
-    $(document).ready(function () {
-        var summernote = document.getElementsByClassName('summernote-div')
-        summernote[0].attributes.removeNamedItem('width')
-
-        summernote = document.getElementById('id_texto_iframe')
-        console.log(summernote['width'])
-        summernote.style.removeProperty('width')
-        console.log(summernote)
-    })
-</script>
-{% endblock scripts %}
