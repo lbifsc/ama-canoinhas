@@ -20,5 +20,7 @@ urlpatterns = [
     path('contato/', views.Mensagem.as_view(), name='contato'),
     path('adicionar_parceiro/', views.AdicionarParceiro.as_view(),
          name='adicionar_parceiro'),
+    path('editar_parceiro/<int:pk>', views.EditarParceiro.as_view(),
+         name='editar_parceiro'),
     path('dashboard/', views.Dashboard.as_view(), name='dashboard'),
 ]

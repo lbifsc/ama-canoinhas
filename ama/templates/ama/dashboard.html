@@ -3,138 +3,142 @@
 {% block conteudo %}
 <section class="section-top">
     <div class="container">
-        <div id="tabs">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#tab-mensagens">
-                        <h4>
-                            Mensagens
-                        </h4>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab-noticias">
-                        <h4>
-                            Notícias
-                        </h4>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab-parceiros">
-                        <h4>Parceiros</h4>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane container active" id="tab-mensagens">
-                    <div class="container">
-                        <div class="row"></div>
-                        <div class="row p-2">
-                            <div id="id-lista-mensagens" class="col-lg-12">
-                                <ul class="list-group">
-                                    {% for mensagem in mensagens %}
-                                        <li class="list-group-item list-group-item-action">
-                                            <div class="row">
-                                                <div class="col-lg-11">
-                                                    <p class="float-left">
-                                                        {{ mensagem.nome }} | {{ mensagem.email }}
-                                                        {% if mensagem.telefone %}
-                                                            | {{ mensagem.telefone }} 
-                                                        {% endif %}
-                                                        </p>
-                                                    <p class="float-right">{{ mensagem.data | date:'d/m/Y' }}</p>
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <div id="tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-mensagens">
+                                <h4>
+                                    Mensagens
+                                </h4>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-noticias">
+                                <h4>
+                                    Notícias
+                                </h4>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-parceiros">
+                                <h4>Parceiros</h4>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane container active" id="tab-mensagens">
+                            <div class="container">
+                                <div class="row"></div>
+                                <div class="row p-2">
+                                    <div id="id-lista-mensagens" class="col-lg-12">
+                                        <ul class="list-group">
+                                            {% for mensagem in mensagens %}
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="row">
+                                                        <div class="col-lg-11">
+                                                            <p class="float-left">
+                                                                {{ mensagem.nome }} | {{ mensagem.email }}
+                                                                {% if mensagem.telefone %}
+                                                                    | {{ mensagem.telefone }} 
+                                                                {% endif %}
+                                                                </p>
+                                                            <p class="float-right">{{ mensagem.data | date:'d/m/Y' }}</p>
+                                                        </div>
+                                                        <div class="col-lg-1">
+                                                            <button class="btn btn-white" style="padding: 0px;">
+                                                                <i class="icofont-trash icofont-2x" style="color: red; margin: 10px;"></i> 
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <p>{{ mensagem.assunto }}</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane container fade" id="tab-noticias">
+                            <div class="container">
+                                <div class="row p-2">
+                                    <div class="col-lg-12">
+                                        <div class="float-right">
+                                            <a href="{% url 'ama:escrever_noticia' %}" class="btn btn-primary">Cadastrar Parceiro</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row p-2">
+                                    {% for noticia in noticias %}
+                                        <div class="col-lg-4 mb-3">
+                                            <div class="card shadow-lg">
+                                                <div class="card-header">
+                                                    <img class="img-fluid mx-auto d-block capa-noticia" src="{{ noticia.capa.url }}" alt="{{ noticia }}">
                                                 </div>
-                                                <div class="col-lg-1">
-                                                    <button class="btn btn-white" style="padding: 0px;">
-                                                        <i class="icofont-trash icofont-2x" style="color: red; margin: 10px;"></i> 
-                                                    </button>
+                                                <div class="card-body">
+                                                    <div class="col-lg-12 text-justify">
+                                                        <h5>{{ noticia }}</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <a href="{% url 'ama:editar_noticia' noticia.pk %}" class="btn btn-primary">Editar</a>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <button class="btn btn-danger">Excluir</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <p>{{ mensagem.assunto }}</p>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        </div>
                                     {% endfor %}
-                                </ul> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane container fade" id="tab-noticias">
-                    <div class="container">
-                        <div class="row p-2">
-                            <div class="col-lg-12">
-                                <div class="float-right">
-                                    <a href="{% url 'ama:escrever_noticia' %}" class="btn btn-primary">Cadastrar Parceiro</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="row p-2">
-                            {% for noticia in noticias %}
-                                <div class="col-lg-4">
-                                    <div class="card shadow-lg">
-                                        <div class="card-header">
-                                            <img class="img-fluid mx-auto d-block capa-noticia" src="{{ noticia.capa.url }}" alt="{{ noticia }}">
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="col-lg-12 text-justify">
-                                                <h5>{{ noticia }}</h5>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <a href="{% url 'ama:editar_noticia' noticia.pk %}" class="btn btn-primary">Editar</a>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <button class="btn btn-danger">Excluir</button>
-                                                </div>
-                                            </div>
+                        <div class="tab-pane container fade" id="tab-parceiros">
+                            <div class="container">
+                                <div class="row p-2">
+                                    <div class="col-lg-12">
+                                        <div class="float-right">
+                                            <a href="{% url 'ama:adicionar_parceiro' %}" class="btn btn-primary">Cadastrar Parceiro</a>
                                         </div>
                                     </div>
                                 </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane container fade" id="tab-parceiros">
-                    <div class="container">
-                        <div class="row p-2">
-                            <div class="col-lg-12">
-                                <div class="float-right">
-                                    <a href="{% url 'ama:adicionar_parceiro' %}" class="btn btn-primary">Cadastrar Parceiro</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row p-2">
-                            {% for parceiro in parceiros %}
-                                <div class="col-lg-4 mb-3">
-                                    <div class="card shadow-lg">
-                                        <div class="card-header">
-                                            <img class="parceiro-body" src="{{ parceiro.logo.url }}" alt="Logomarca {{ parceiro }}">
-                                        </div>
-                                        <div class="card-body">
-                                            <h5>{{ parceiro }}</h5>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <a href="" class="btn btn-primary">Editar</a>
-                                                </div>  
-                                                <div class="col-lg-6">
-                                                    <button class="btn btn-danger">Excluir</button>
+                                <div class="row p-2">
+                                    {% for parceiro in parceiros %}
+                                        <div class="col-lg-4 mb-3">
+                                            <div class="card shadow-lg">
+                                                <div class="card-header">
+                                                    <img class="parceiro-body" src="{{ parceiro.logo.url }}" alt="Logomarca {{ parceiro }}">
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5>{{ parceiro }}</h5>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <a href="{% url 'ama:editar_parceiro' parceiro.pk %}" class="btn btn-primary">Editar</a>
+                                                        </div>  
+                                                        <div class="col-lg-6">
+                                                            <button class="btn btn-danger">Excluir</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
-                            {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div>    
             </div>
         </div>
     </div>

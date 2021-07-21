@@ -203,6 +203,49 @@ class AdicionarParceiro(View):
         return redirect('ama:adicionar_parceiro')
 
 
+class EditarParceiro(View):
+    template_name = 'ama/adicionar_parceiro.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        self.parceiro = get_object_or_404(
+            models.Parceiro, pk=self.kwargs.get('pk'))
+
+        self.logo_atual_path = self.parceiro.logo.path
+
+        contexto = {
+            'parceiro_form': forms.ParceiroForm(
+                self.request.POST or None,
+                self.request.FILES or None,
+                instance=self.parceiro,
+            )
+        }
+
+        self.parceiro_form = contexto['parceiro_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.parceiro_form.is_valid():
+            return self.renderizar
+
+        self.parceiro.nome = self.parceiro_form.cleaned_data.get('nome')
+
+        if self.request.FILES.get('logo'):
+            self.parceiro.logo = self.request.FILES.get('logo')
+            os.remove(self.logo_atual_path)
+
+        self.parceiro.save()
+
+        messages.success(self.request, 'Parceiro editado com sucesso!')
+
+        return redirect('ama:dashboard')
+
+
 class Dashboard(View):
     template_name = 'ama/dashboard.html'
 
