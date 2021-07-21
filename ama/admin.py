@@ -1,11 +1,13 @@
 from . import models
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 
 
-class NoticiaAdmin(admin.ModelAdmin):
+class NoticiaAdmin(SummernoteModelAdmin):
     list_display = ('pk', 'titulo', 'data_publicacao', 'publicado', )
     list_display_links = ('pk', 'titulo', 'data_publicacao', )
     list_editable = ('publicado', )
+    summernote_fields = ('texto')
 
 
 admin.site.register(models.Noticia, NoticiaAdmin)
