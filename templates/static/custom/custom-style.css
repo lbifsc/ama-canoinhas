@@ -51,6 +51,7 @@
 
 .capa-noticia {
     height: 150px;
+    width: auto;
     max-width: 100%;
 }
 
@@ -71,4 +72,17 @@ a:hover h4 {
 .nav-link {
     color: #00ff00;
     text-decoration: none;
+}
+
+.nav-link {
+    color: black;
+}
+
+.nav-tabs .nav-link.active h4 {
+    color: #223a66;
+}
+
+#tabs {
+    border: 1px black;
+    border-style: solid;
 }

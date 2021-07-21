@@ -201,3 +201,21 @@ class AdicionarParceiro(View):
         messages.success(self.request, 'Parceiro adicionado com sucesso!')
 
         return redirect('ama:adicionar_parceiro')
+
+
+class Dashboard(View):
+    template_name = 'ama/dashboard.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        contexto = {
+            'mensagens': models.Mensagem.objects.all().order_by('lida'),
+            'noticias': models.Noticia.objects.all(),
+            'parceiros': models.Parceiro.objects.all(),
+        }
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
