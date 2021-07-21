@@ -1,4 +1,5 @@
 import os
+from django.http import request
 
 from django.http.response import JsonResponse
 from . import forms
@@ -97,6 +98,16 @@ class EditarNoticia(View):
         return redirect('ama:detalhes_noticia', slug=self.noticia.slug)
 
 
+def excluir_noticia(request, pk):
+    if request.is_ajax():
+        if request.POST:
+            noticia = get_object_or_404(models.Noticia, pk=pk)
+            os.remove(noticia.capa.path)
+            noticia.delete()
+
+            return JsonResponse('success', safe=False)
+
+
 class ListarNoticias(ListView):
     model = models.Noticia
     template_name = 'ama/listar_noticias.html'
@@ -175,6 +186,14 @@ class Mensagem(View):
         )
 
         return redirect('ama:contato')
+
+
+def excluir_mensagem(request, pk):
+    if request.is_ajax():
+        if request.POST:
+            get_object_or_404(models.Mensagem, pk=pk).delete()
+
+            return JsonResponse('success', safe=False)
 
 
 class AdicionarParceiro(View):
