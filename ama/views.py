@@ -1,4 +1,6 @@
 import os
+
+from django.http.response import JsonResponse
 from . import forms
 from . import models
 from django.views import View
@@ -244,6 +246,16 @@ class EditarParceiro(View):
         messages.success(self.request, 'Parceiro editado com sucesso!')
 
         return redirect('ama:dashboard')
+
+
+def excluir_parceiro(request, pk):
+    if request.is_ajax():
+        if request.POST:
+            parceiro = get_object_or_404(models.Parceiro, pk=pk)
+            os.remove(parceiro.logo.path)
+            parceiro.delete()
+
+            return JsonResponse('success', safe=False)
 
 
 class Dashboard(View):
