@@ -37,7 +37,7 @@
                                         <form action="" method="get" class="form-inline">
                                             <div class="form-group">
                                                 <label for="ordena-mensagens">Ordenar por: </label>
-                                                <select name="" id="ordena-mensagens" class="ml-2 form-control">
+                                                <select name="" id="ordena-mensagens" class="ml-2 form-control" onchange="this.form.submit()">
                                                     <option value="Lidas">Lidas</option>
                                                     <option value="Lidas">Não lidas</option>
                                                     <option value="Lidas">Recentes</option>
@@ -101,7 +101,7 @@
                                             <form action="" method="get" class="form-inline">
                                                 <div class="form-group">
                                                     <label for="ordena-noticias">Ordenar por: </label>
-                                                    <select name="" id="ordena-noticias" class="ml-2 form-control">
+                                                    <select name="" id="ordena-noticias" class="ml-2 form-control" onchange="this.form.submit()">
                                                         <option value="">Publicadas</option>
                                                         <option value="">Não publicadas</option>
                                                         <option value="">Recentes</option>
@@ -130,7 +130,7 @@
                                                 <div class="card-footer">
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <a href="{% url 'ama:editar_noticia' noticia.pk %}" class="btn btn-primary">Editar</a>
+                                                            <a href="{% url 'ama:editar_noticia' noticia.slug %}" class="btn btn-primary">Editar</a>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <button onclick="excluir_noticia({{ noticia.pk }})" class="btn btn-danger">Excluir</button>

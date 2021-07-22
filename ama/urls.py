@@ -23,8 +23,7 @@ urlpatterns = [
     # Noticia
     path('escrever_noticia/', views.EscreverNoticia.as_view(),
          name='escrever_noticia'),
-    # TODO: Alterar id para slug na url de editar notícia
-    path('editar_noticia/<int:pk>', views.EditarNoticia.as_view(),
+    path('editar_noticia/<slug>', views.EditarNoticia.as_view(),
          name='editar_noticia'),
     path('excluir_noticia/<int:pk>', views.excluir_noticia,
          name='excluir_noticia'),

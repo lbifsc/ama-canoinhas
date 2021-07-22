@@ -64,7 +64,7 @@ class EditarNoticia(View):
         super().setup(*args, **kwargs)
 
         self.noticia = get_object_or_404(
-            models.Noticia, pk=self.kwargs.get('pk'))
+            models.Noticia, slug=self.kwargs.get('slug'))
         self.capa_atual_path = self.noticia.capa.path
 
         contexto = {
@@ -145,11 +145,17 @@ class DetalhesNoticia(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['noticia'] = get_object_or_404(
-            models.Noticia,
-            slug=self.kwargs.get('slug'),
-            publicado=True,
-        )
+        if self.request.user.is_authenticated:
+            context['noticia'] = get_object_or_404(
+                models.Noticia,
+                slug=self.kwargs.get('slug'),
+            )
+        else:
+            context['noticia'] = get_object_or_404(
+                models.Noticia,
+                slug=self.kwargs.get('slug'),
+                publicado=True,
+            )
 
         return context
 
