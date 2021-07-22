@@ -15,6 +15,8 @@ urlpatterns = [
     path('contato/', views.Mensagem.as_view(), name='contato'),
     path('detalhes_mensagem/<int:pk>', views.DetalhesMensagem.as_view(),
          name='detalhes_mensagem'),
+    path('marcar_lida/<int:pk>', views.marcar_lida,
+         name='marcar_lida'),
     path('excluir_mensagem/<int:pk>', views.excluir_mensagem,
          name='excluir_mensagem'),
 

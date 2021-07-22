@@ -55,11 +55,12 @@
                                                         <div class="col-lg-1">
                                                             {% if mensagem.lida %}
                                                                 <button id="mensagem-lida" type="button" class="btn-sm" data-toggle="tooltip" 
-                                                                    data-placement="top" title="Marcar como não lida">
+                                                                    data-placement="top" title="Marcar como não lida" funvalue="false" onclick="marcar_lida({{ mensagem.pk }}, this)">
                                                                     <i class="icofont-envelope icofont-2x"></i>
                                                                 </button>
                                                             {% else %}
-                                                                <button id="mensagem-nao-lida" type="button" class="btn-sm" data-toggle="tooltip" data-placement="top" title="Marcar como lida">
+                                                                <button id="mensagem-nao-lida" type="button" class="btn-sm" data-toggle="tooltip"
+                                                                    data-placement="top" title="Marcar como lida" funvalue="true" onclick="marcar_lida({{ mensagem.pk }}, this)">
                                                                     <i class="icofont-envelope-open icofont-2x"></i>
                                                                 </button>
                                                             {% endif %}

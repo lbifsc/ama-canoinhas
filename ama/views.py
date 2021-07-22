@@ -1,5 +1,6 @@
 import os
 from django.http import request
+from django.http import response
 
 from django.http.response import JsonResponse
 from . import forms
@@ -210,6 +211,26 @@ def excluir_mensagem(request, pk):
             get_object_or_404(models.Mensagem, pk=pk).delete()
 
             return JsonResponse('success', safe=False)
+
+
+def marcar_lida(request, pk):
+    if request.is_ajax():
+        if request.POST:
+            mensagem = get_object_or_404(models.Mensagem, pk=pk)
+            lida = request.POST.get('lida')
+
+            if lida == 'true':
+                mensagem.lida = True
+            else:
+                mensagem.lida = False
+
+            mensagem.save()
+            response = {
+                'success': 'success',
+                'lida': mensagem.lida,
+            }
+
+            return JsonResponse(response, safe=False)
 
 
 class AdicionarParceiro(View):
