@@ -1,7 +1,10 @@
 var csrftoken = Cookies.get('csrftoken');
 
-$(document).ready(function () {
-    console.clear();
+$('[data-toggle="tooltip"]').tooltip({
+    delay: {
+        show: 100,
+        hide: 100
+    }
 });
 
 function excluir_parceiro(pk) {

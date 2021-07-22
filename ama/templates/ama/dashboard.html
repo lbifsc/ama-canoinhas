@@ -35,33 +35,45 @@
                                 <div class="row"></div>
                                 <div class="row p-2">
                                     <div id="id-lista-mensagens" class="col-lg-12">
-                                        <ul class="list-group">
+                                        <div class="list-group">
                                             {% for mensagem in mensagens %}
-                                                <li id="mensagem_{{ mensagem.pk }}" class="list-group-item list-group-item-action">
+                                                <div id="mensagem_{{ mensagem.pk }}" class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="row">
-                                                        <div class="col-lg-11">
-                                                            <p class="float-left">
-                                                                {{ mensagem.nome }} | {{ mensagem.email }}
-                                                                {% if mensagem.telefone %}
-                                                                    | {{ mensagem.telefone }} 
-                                                                {% endif %}
-                                                                </p>
-                                                            <p class="float-right">{{ mensagem.data | date:'d/m/Y' }}</p>
+                                                        <a class="col-lg-8" href="{% url 'ama:detalhes_mensagem' mensagem.pk %}">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <p>{{ mensagem.nome }}</p>
+                                                                </div>
+                                                                <div class="col-lg-8">
+                                                                    <p>{{ mensagem.assunto }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <div class="col-lg-2">
+                                                            <p>{{ mensagem.data | date:'d/m/Y' }}</p>
                                                         </div>
                                                         <div class="col-lg-1">
-                                                            <button onclick="excluir_mensagem({{ mensagem.pk }})" class="btn btn-white" style="padding: 0px;">
-                                                                <i class="icofont-trash icofont-2x" style="color: red; margin: 10px;"></i> 
+                                                            {% if mensagem.lida %}
+                                                                <button id="mensagem-lida" type="button" class="btn-sm" data-toggle="tooltip" 
+                                                                    data-placement="top" title="Marcar como não lida">
+                                                                    <i class="icofont-envelope icofont-2x"></i>
+                                                                </button>
+                                                            {% else %}
+                                                                <button id="mensagem-nao-lida" type="button" class="btn-sm" data-toggle="tooltip" data-placement="top" title="Marcar como lida">
+                                                                    <i class="icofont-envelope-open icofont-2x"></i>
+                                                                </button>
+                                                            {% endif %}
+                                                        </div>  
+                                                        <div class="col-lg-1">
+                                                            <button onclick="excluir_mensagem({{ mensagem.pk }})" class="btn-sm" data-toggle="tooltip"
+                                                                data-placement="top" title="Excluir">
+                                                                <i class="icofont-trash icofont-2x" style="color: red;"></i> 
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <p>{{ mensagem.assunto }}</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                </div>
                                             {% endfor %}
-                                        </ul> 
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
