@@ -4,7 +4,8 @@ $('[data-toggle="tooltip"]').tooltip({
     delay: {
         show: 100,
         hide: 100
-    }
+    },
+    trigger: 'hover',
 });
 
 function excluir_parceiro(pk) {
