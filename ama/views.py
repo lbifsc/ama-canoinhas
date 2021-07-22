@@ -188,6 +188,22 @@ class Mensagem(View):
         return redirect('ama:contato')
 
 
+class DetalhesMensagem(DetailView):
+    template_name = 'ama/detalhes_mensagem.html'
+    model = models.Mensagem
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        mensagem = get_object_or_404(models.Mensagem, pk=self.kwargs.get('pk'))
+        if not mensagem.lida:
+            mensagem.lida = True
+            mensagem.save()
+
+        context['mensagem'] = mensagem
+
+        return context
+
+
 def excluir_mensagem(request, pk):
     if request.is_ajax():
         if request.POST:
