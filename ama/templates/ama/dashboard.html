@@ -32,7 +32,21 @@
                     <div class="tab-content">
                         <div class="tab-pane container active" id="tab-mensagens">
                             <div class="container">
-                                <div class="row"></div>
+                                <div class="row p-2">
+                                    <div class="col-auto">
+                                        <form action="" method="get" class="form-inline">
+                                            <div class="form-group">
+                                                <label for="ordena-mensagens">Ordenar por: </label>
+                                                <select name="" id="ordena-mensagens" class="ml-2 form-control">
+                                                    <option value="Lidas">Lidas</option>
+                                                    <option value="Lidas">Não lidas</option>
+                                                    <option value="Lidas">Recentes</option>
+                                                    <option value="Lidas">Antigas</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                                 <div class="row p-2">
                                     <div id="id-lista-mensagens" class="col-lg-12">
                                         <div class="list-group">
@@ -83,8 +97,21 @@
                             <div class="container">
                                 <div class="row p-2">
                                     <div class="col-lg-12">
+                                        <div class="float-left">
+                                            <form action="" method="get" class="form-inline">
+                                                <div class="form-group">
+                                                    <label for="ordena-noticias">Ordenar por: </label>
+                                                    <select name="" id="ordena-noticias" class="ml-2 form-control">
+                                                        <option value="">Publicadas</option>
+                                                        <option value="">Não publicadas</option>
+                                                        <option value="">Recentes</option>
+                                                        <option value="">Antigas</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
                                         <div class="float-right">
-                                            <a href="{% url 'ama:escrever_noticia' %}" class="btn btn-primary">Cadastrar Parceiro</a>
+                                            <a href="{% url 'ama:escrever_noticia' %}" class="btn btn-primary">Escrever Notícia</a>
                                         </div>
                                     </div>
                                 </div>
