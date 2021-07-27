@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+    <section class="section-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col d-flex justify-content-center">
+                    <div class="card shadow-lg col-lg-5">
+                        <div class="card-header">
+                            <h4>Login</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="inputUsername">Nome de Usuário: *</label>
+                                            <input type="text" name="username" id="inputUsername" class="form-control"
+                                                placeholder="Nome de usuário" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="inputPassword">Senha: *</label>
+                                            <input type="password" name="password" id="inputPassword" class="form-control"
+                                                placeholder="Senha" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Entrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock conteudo %}

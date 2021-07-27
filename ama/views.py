@@ -1,14 +1,14 @@
 import os
-from django.http import request
-from django.http import response
-
-from django.http.response import JsonResponse
 from . import forms
 from . import models
 from django.views import View
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.http.response import JsonResponse
+from django.contrib.auth import authenticate, login
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 
@@ -29,7 +29,7 @@ class Index(View):
         return self.renderizar
 
 
-class EscreverNoticia(View):
+class EscreverNoticia(LoginRequiredMixin, View):
     template_name = 'ama/escrever_noticia.html'
 
     def setup(self, *args, **kwargs):
@@ -57,7 +57,7 @@ class EscreverNoticia(View):
         return redirect('ama:detalhes_noticia', slug=noticia.slug)
 
 
-class EditarNoticia(View):
+class EditarNoticia(LoginRequiredMixin, View):
     template_name = 'ama/escrever_noticia.html'
 
     def setup(self, *args, **kwargs):
@@ -99,6 +99,7 @@ class EditarNoticia(View):
         return redirect('ama:detalhes_noticia', slug=self.noticia.slug)
 
 
+@login_required
 def excluir_noticia(request, pk):
     if request.is_ajax():
         if request.POST:
@@ -211,6 +212,7 @@ class DetalhesMensagem(DetailView):
         return context
 
 
+@login_required
 def excluir_mensagem(request, pk):
     if request.is_ajax():
         if request.POST:
@@ -219,6 +221,7 @@ def excluir_mensagem(request, pk):
             return JsonResponse('success', safe=False)
 
 
+@login_required
 def marcar_lida(request, pk):
     if request.is_ajax():
         if request.POST:
@@ -239,7 +242,7 @@ def marcar_lida(request, pk):
             return JsonResponse(response, safe=False)
 
 
-class AdicionarParceiro(View):
+class AdicionarParceiro(LoginRequiredMixin, View):
     template_name = 'ama/adicionar_parceiro.html'
 
     def setup(self, *args, **kwargs):
@@ -267,7 +270,7 @@ class AdicionarParceiro(View):
         return redirect('ama:adicionar_parceiro')
 
 
-class EditarParceiro(View):
+class EditarParceiro(LoginRequiredMixin, View):
     template_name = 'ama/adicionar_parceiro.html'
 
     def setup(self, *args, **kwargs):
@@ -310,6 +313,7 @@ class EditarParceiro(View):
         return redirect('ama:dashboard')
 
 
+@login_required
 def excluir_parceiro(request, pk):
     if request.is_ajax():
         if request.POST:
@@ -320,7 +324,7 @@ def excluir_parceiro(request, pk):
             return JsonResponse('success', safe=False)
 
 
-class Dashboard(View):
+class Dashboard(LoginRequiredMixin, View):
     template_name = 'ama/dashboard.html'
 
     def setup(self, *args, **kwargs):
@@ -336,3 +340,27 @@ class Dashboard(View):
 
     def get(self, *args, **kwargs):
         return self.renderizar
+
+
+class Login(View):
+    template_name = 'ama/login.html'
+
+    def get(self, *args, **kwargs):
+        return render(self.request, self.template_name)
+
+    def post(self, *args, **kwargs):
+        user = authenticate(
+            username=self.request.POST.get('username'),
+            password=self.request.POST.get('password'),
+        )
+
+        if not user:
+            messages.error(self.request, 'Nome de usuário ou senha incorretos!')
+            return redirect('ama:login')
+        else:
+            login(self.request, user)
+
+        if self.request.GET.get('next') is None:
+            return redirect('ama:dashboard')
+        else: 
+            return redirect(self.request.GET.get('next'))
