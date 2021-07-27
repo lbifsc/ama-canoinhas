@@ -5,7 +5,7 @@ from django.views import View
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http.response import JsonResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -364,3 +364,9 @@ class Login(View):
             return redirect('ama:dashboard')
         else: 
             return redirect(self.request.GET.get('next'))
+
+
+class Logout(View):
+    def get(self, *args, **kwargs):
+        logout(self.request)
+        return redirect('ama:index')

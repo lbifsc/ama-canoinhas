@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg navigation" id="navbar">
     <div class="container">
         <a class="" href="{% url 'ama:index' %}">
-            <img id="nav-image" src="{% static 'images/ama-icon.png' %}" alt="" class="img-fluid"">
+            <img id="nav-image" src="{% static 'images/ama-icon.png' %}" alt="" class="img-fluid">
         </a>
 
         <button class=" navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
@@ -58,6 +58,12 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="">Recomendações</a>
                     </li>
+
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item active">
+                            <a href="{% url 'ama:logout' %}" class="nav-link">Sair</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
     </div>

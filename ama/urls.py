@@ -1,4 +1,3 @@
-from os import name
 from . import views
 from django.urls import path
 
@@ -11,6 +10,7 @@ urlpatterns = [
     path('sobre/', views.Sobre.as_view(), name='sobre'),
     path('dashboard/', views.Dashboard.as_view(), name='dashboard'),
     path('login/', views.Login.as_view(), name='login'),
+    path('logout/', views.Logout.as_view(), name='logout'),
 
     # Mensagem
     path('contato/', views.Mensagem.as_view(), name='contato'),
