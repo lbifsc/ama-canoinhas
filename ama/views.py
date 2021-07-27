@@ -370,3 +370,8 @@ class Logout(View):
     def get(self, *args, **kwargs):
         logout(self.request)
         return redirect('ama:index')
+
+
+class Doacao(View):
+    def get(self, *args, **kwargs):
+        return render(self.request, 'ama/doacao.html')
