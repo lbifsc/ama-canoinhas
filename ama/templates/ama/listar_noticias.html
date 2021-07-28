@@ -10,20 +10,20 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-lg-auto">
-                    <form action="" method="get" class="form-inline">
-                        <div class="form-group">
-                            <label for="id-ordena-noticias">Ordedar por:</label>
-                            <select class="ml-2 form-control" name="ordena-noticias" id="id-ordena-noticias"
-                                onchange="this.form.submit()">
-                                {% if ordenado %}
-                                    <option value="Mais recentes">Mais recentes</option>
-                                    <option value="Mais antigas" selected>Mais antigas</option>
-                                {% else %}
-                                    <option value="Mais recentes">Mais recentes</option>
-                                    <option value="Mais antigas">Mais antigas</option>
-                                {% endif %}
-                            </select>
+                <div class="col-lg-12">
+                    <form action="" method="GET" class="">
+                        <div class="col-lg">
+                            <div class="row">
+                                <div class="form-group col-lg-2">
+                                    {{ filterset.form.data_publicacao }}
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    {{ filterset.form.titulo }}
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <input type="submit" class="btn-sm btn-primary" style="height: 100%;" value="Filtrar">
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -88,3 +88,12 @@
         </div>
     </section>
 {% endblock conteudo %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            console.log(document.getElementsByTagName('label'))
+            document.getElementsByTagName('label')[0].style.display = 'none'
+        });
+    </script>
+{% endblock scripts %}

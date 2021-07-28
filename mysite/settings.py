@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'django_summernote',
+    'django_filters',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

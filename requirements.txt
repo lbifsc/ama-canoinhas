@@ -4,3 +4,4 @@ django-crispy-forms
 pymysql
 mysqlclient
 django-summernote
+django-filter

@@ -3,6 +3,7 @@ from . import forms
 from . import models
 from django.views import View
 from django.contrib import messages
+from .filters import NoticiaFilterSet
 from django.core.paginator import Paginator
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -114,29 +115,16 @@ class ListarNoticias(ListView):
     model = models.Noticia
     template_name = 'ama/listar_noticias.html'
     paginate_by = 15
+    filterset_class = NoticiaFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        noticias = models.Noticia.objects.filter(publicado=True)
-        paginator = Paginator(None, self.paginate_by)
-        is_paginated = True
-
-        if noticias.count() <= self.paginate_by:
-            is_paginated = False
-
-        ordem = self.request.GET.get('ordena-noticias')
-
-        if ordem == 'Mais antigas':
-            paginator.object_list = noticias.order_by('data_publicacao')
-            context['ordenado'] = True
-        else:
-            paginator.object_list = noticias.order_by('-data_publicacao')
-            context['ordenado'] = False
-
-        context['is_paginated'] = is_paginated
-        context['page_obj'] = paginator.get_page(self.request.GET.get('page'))
-
+        context['filterset'] = self.filterset
         return context
 
 
