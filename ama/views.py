@@ -1,10 +1,11 @@
 import os
+
+from django.db.models import query
 from . import forms
 from . import models
 from django.views import View
 from django.contrib import messages
-from .filters import NoticiaFilterSet
-from django.core.paginator import Paginator
+from .filters import NoticiaFilterSet, MensagemFilterSet
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView, DetailView
@@ -182,6 +183,23 @@ class Mensagem(View):
         )
 
         return redirect('ama:contato')
+
+
+class ListarMensagens(ListView):
+    model = models.Mensagem
+    template_name = 'ama/mensagens.html'
+    paginate_by = 30
+    filterset_class = MensagemFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
 
 
 class DetalhesMensagem(DetailView):

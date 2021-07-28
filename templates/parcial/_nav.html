@@ -37,7 +37,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown-acoes"
+                        <a class="nav-link dropdown-toggle" href="" id="dropdown-acoes"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ações<i
                                 class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown-acoes">
@@ -59,9 +59,23 @@
                         <a class="nav-link" href="">Recomendações</a>
                     </li>
 
-                    {% if request.user.is_authenticated %}
+                    {% if not request.user.is_authenticated %}
                         <li class="nav-item active">
-                            <a href="{% url 'ama:logout' %}" class="nav-link">Sair</a>
+                            <a href="{% url 'ama:login' %}" class="nav-link btn btn-primary text-white">Entrar</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a href="" class="nav-link dropdown-toggle" id="dropdown-usuario"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false ">
+                                Admin
+                                <i class="icofont-thin-down"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown-usuario">
+                                <li><a href="{% url 'ama:mensagens' %}" class="dropdown-item">Mensagens</a></li>
+                                <li><a href="" class="dropdown-item">Notícias</a></li>
+                                <li><a href="" class="dropdown-item">Parceiros </a></li>
+                                <li><a href="{% url 'ama:logout' %}" class="dropdown-item">Sair</a></li>
+                            </ul>
                         </li>
                     {% endif %}
                 </ul>
