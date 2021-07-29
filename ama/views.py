@@ -185,11 +185,12 @@ class Mensagem(View):
         return redirect('ama:contato')
 
 
-class ListarMensagens(ListView):
+class ListarMensagens(LoginRequiredMixin, ListView):
     model = models.Mensagem
     template_name = 'ama/mensagens.html'
     paginate_by = 30
     filterset_class = MensagemFilterSet
+    ordering = ['-data', ]
 
     def get_queryset(self):
         queryset = super().get_queryset()

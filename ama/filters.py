@@ -34,7 +34,7 @@ class NoticiaFilterSet(FilterSet):
         return queryset.order_by(value)
 
     def filter_titulo(self, queryset, name, value):
-        return queryset.filter(titulo__contains__=value)
+        return queryset.filter(titulo__icontains=value)
 
 
 class MensagemFilterSet(FilterSet):
@@ -71,5 +71,7 @@ class MensagemFilterSet(FilterSet):
 
     def search_filter(self, queryset, name, value):
         return queryset.filter(
-            Q(assunto__icontains=value)  
+            Q(assunto__icontains=value) |
+            Q(nome__icontains=value) | 
+            Q(mensagem__icontains=value)
         )
