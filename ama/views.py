@@ -5,7 +5,7 @@ from . import forms
 from . import models
 from django.views import View
 from django.contrib import messages
-from .filters import NoticiaFilterSet, MensagemFilterSet
+from .filters import NoticiaFilterSet, MensagemFilterSet, ParceiroFilterSet
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView, DetailView
@@ -275,6 +275,24 @@ class AdicionarParceiro(LoginRequiredMixin, View):
         messages.success(self.request, 'Parceiro adicionado com sucesso!')
 
         return redirect('ama:adicionar_parceiro')
+
+
+class ListarParceiros(LoginRequiredMixin, ListView):
+    model = models.Parceiro
+    template_name = 'ama/parceiros.html'
+    paginate_by = 15
+    filterset_class = ParceiroFilterSet
+    ordering = ['nome', ]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
 
 
 class EditarParceiro(LoginRequiredMixin, View):

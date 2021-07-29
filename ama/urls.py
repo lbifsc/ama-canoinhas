@@ -31,4 +31,5 @@ urlpatterns = [
     path('adicionar_parceiro/', views.AdicionarParceiro.as_view(), name='adicionar_parceiro'),
     path('editar_parceiro/<int:pk>', views.EditarParceiro.as_view(), name='editar_parceiro'),
     path('excluir_parceiro/<int:pk>', views.excluir_parceiro, name='excluir_parceiro'),
+    path('parceiros', views.ListarParceiros.as_view(), name='parceiros'),
 ]
