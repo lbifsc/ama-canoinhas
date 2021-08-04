@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+    <section>
+        <div class="container">
+            <h1>Evento</h1>
+
+            {% crispy evento_form %}
+        </div>
+    </section>
+{% endblock conteudo %}

@@ -5,35 +5,26 @@
         <a class="" href="{% url 'ama:index' %}">
             <img id="nav-image" src="{% static 'images/ama-icon.png' %}" alt="" class="img-fluid">
         </a>
-
-        <button class=" navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain"
-                aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="icofont-navigation-menu"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarmain">
-                <ul class="navbar-nav ml-auto">
+            <div class="collapse navbar-collapse justify-content-center" id="navbarmain">
+                <ul class="navbar-nav ">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'ama:index' %}">Início</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ama:listar_noticias' %}">Notícias</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#parceiros-section">Parceiros</a>
-                    </li>
-
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="" id="dropdown-quemsomos" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Quem Somos<i class="icofont-thin-down"></i></a>
+                        <a class="nav-link" href="{% url 'ama:sobre' %}" >Quem Somos<i class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown-quemsomos">
-                            <li><a class="dropdown-item" href="#ama-section">O que é a AMA?</a></li>
-                            <li><a class="dropdown-item" href="#surgiu-section">Como surgiu</a></li>
-                            <li><a class="dropdown-item" href="#oferecemos-section">O que oferecemos</a></li>
-                            <li><a class="dropdown-item" href="#autismo-section">Sobre o autismo</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:sobre' %}#ama-section">O que é a AMA?</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:sobre' %}#surgiu-section">Como surgiu</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:sobre' %}#oferecemos-section">O que oferecemos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:sobre' %}#autismo-section">Sobre o autismo</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:sobre' %}#causas-section">Quais são as causas?</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:sobre' %}#sinais-section">Sinais e Sintomas</a></li>
                         </ul>
+                    </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ama:listar_noticias' %}">Notícias</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -41,14 +32,9 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ações<i
                                 class="icofont-thin-down"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown-acoes">
-                            <li><a class="dropdown-item" href="#">Fotos</a></li>
-                            <li><a class="dropdown-item" href="#">Eventos</a></li>
-                            <li><a class="dropdown-item" href="#">Projetos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:listar_eventos' %}">Eventos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ama:listar_projetos' %}">Projetos</a></li>
                         </ul>
-                    </li>
-
-                    <li class="nav-item active">
-                        <a class="nav-link" href="">Fazer Parte</a>
                     </li>
 
                     <li class="nav-item active">
@@ -56,26 +42,16 @@
                     </li>
 
                     <li class="nav-item active">
-                        <a class="nav-link" href="">Recomendações</a>
+                        <a class="nav-link btn btn-primary text-white" href="{% url 'ama:doacao' %}"> Faça uma doação</a>
                     </li>
 
-                    {% if not request.user.is_authenticated %}
+
+                    {% if request.user.is_authenticated %}
                         <li class="nav-item active">
-                            <a href="{% url 'ama:login' %}" class="nav-link btn btn-primary text-white">Entrar</a>
+                            <a class="nav-link" href="{% url 'ama:dashboard' %}">Dashboard</a>
                         </li>
-                    {% else %}
-                        <li class="nav-item dropdown">
-                            <a href="" class="nav-link dropdown-toggle" id="dropdown-usuario"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false ">
-                                Admin
-                                <i class="icofont-thin-down"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown-usuario">
-                                <li><a href="{% url 'ama:mensagens' %}" class="dropdown-item">Mensagens</a></li>
-                                <li><a href="{% url 'ama:parceiros' %}" class="dropdown-item">Notícias</a></li>
-                                <li><a href="" class="dropdown-item">Parceiros </a></li>
-                                <li><a href="{% url 'ama:logout' %}" class="dropdown-item">Sair</a></li>
-                            </ul>
+                        <li>
+                            <a class="nav-link" href="{% url 'ama:logout' %}">Sair</a>
                         </li>
                     {% endif %}
                 </ul>

@@ -32,4 +32,21 @@ urlpatterns = [
     path('editar_parceiro/<int:pk>', views.EditarParceiro.as_view(), name='editar_parceiro'),
     path('excluir_parceiro/<int:pk>', views.excluir_parceiro, name='excluir_parceiro'),
     path('parceiros', views.ListarParceiros.as_view(), name='parceiros'),
+
+    # Sobre
+    path('sobre/', views.Sobre.as_view(), name='sobre'), 
+
+    # Projeto
+    path('escrever_projeto/', views.EscreverProjeto.as_view(), name='escrever_projeto'),
+    path('editar_projeto/<slug>', views.EditarProjeto.as_view(), name='editar_projeto'),
+    path('excluir_projeto/<int:pk>', views.excluir_projeto, name='excluir_projeto'),
+    path('detalhes_projeto/<slug>', views.DetalhesProjeto.as_view(), name='detalhes_projeto'),
+    path('listar_projetos/', view=views.ListarProjetos.as_view(), name='listar_projetos'),
+
+    # Eventos
+    path('escrever_evento/', views.EscreverEvento.as_view(), name='escrever_evento'),
+    path('editar_evento/<slug>', views.EditarEvento.as_view(), name='editar_evento'),
+    path('excluir_evento/<int:pk>', views.excluir_evento, name='excluir_evento'),
+    path('detalhes_evento/<slug>', views.DetalhesEvento.as_view(), name='detalhes_evento'),
+    path('listar_evento/', view=views.ListarEventos.as_view(), name='listar_eventos'),
 ]

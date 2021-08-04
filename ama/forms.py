@@ -142,3 +142,103 @@ class ParceiroForm(forms.ModelForm):
                 Submit('submit', 'Salvar')
             ),
         )
+
+class ProjetoForm(forms.ModelForm):
+    titulo = forms.CharField(
+        label='Título:',
+        max_length=255,
+        required=True,
+    )
+
+    capa = forms.ImageField(
+        label='Capa:',
+        required=True
+    )
+
+    publicado = forms.BooleanField(
+        required=False
+    )
+
+    texto = forms.CharField(
+        label='Texto:',
+        widget=SummernoteWidget(),
+        required=True
+    )
+
+    class Meta:
+        model = models.Projeto
+        fields = ['titulo', 'capa', 'publicado', 'texto', ]
+
+    def __init__(self, *args, **kwargs):
+        super(ProjetoForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.method = 'POST'
+
+        self.helper.layout = Layout(
+            Row(
+                Column('titulo', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('capa', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('publicado', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('texto', css_class='col-lg-12'),
+            ),
+            ButtonHolder(
+                Submit('submit', 'Salvar', css_class='mb-3')
+            ),
+        )
+
+class EventoForm(forms.ModelForm):
+    titulo = forms.CharField(
+        label='Título:',
+        max_length=255,
+        required=True,
+    )
+
+    capa = forms.ImageField(
+        label='Capa:',
+        required=True
+    )
+
+    publicado = forms.BooleanField(
+        required=False
+    )
+
+    texto = forms.CharField(
+        label='Texto:',
+        widget=SummernoteWidget(),
+        required=True
+    )
+
+    class Meta:
+        model = models.Evento
+        fields = ['titulo', 'capa', 'publicado', 'texto', ]
+
+    def __init__(self, *args, **kwargs):
+        super(EventoForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.method = 'POST'
+
+        self.helper.layout = Layout(
+            Row(
+                Column('titulo', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('capa', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('publicado', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('texto', css_class='col-lg-12'),
+            ),
+            ButtonHolder(
+                Submit('submit', 'Salvar', css_class='mb-3')
+            ),
+        )

@@ -53,3 +53,55 @@ class Mensagem(models.Model):
     class Meta:
         verbose_name = 'Mensagem'
         verbose_name_plural = 'Mensagens'
+
+class Projeto(models.Model):
+    titulo = models.CharField(max_length=255, verbose_name='Título')
+    capa = models.ImageField(upload_to='projetos/')
+    texto = models.TextField()
+    publicado = models.BooleanField(default=False)
+    data_publicacao = models.DateField(
+        blank=True, null=True, verbose_name='Data de publicação')
+    slug = models.SlugField(unique=True, blank=True, max_length=100)
+
+    def save(self, *args, **kwargs):
+        super().save()
+
+        if not self.slug:
+            self.slug = f'{slugify(self.titulo)}-{str(self.pk)}'
+
+        if not self.data_publicacao:
+            if self.publicado:
+                self.data_publicacao = timezone.now()
+            else:
+                self.data_publicacao = None
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.titulo
+
+class Evento(models.Model):
+    titulo = models.CharField(max_length=255, verbose_name='Título')
+    capa = models.ImageField(upload_to='eventos/')
+    texto = models.TextField()
+    publicado = models.BooleanField(default=False)
+    data_publicacao = models.DateField(
+        blank=True, null=True, verbose_name='Data de publicação')
+    slug = models.SlugField(unique=True, blank=True, max_length=100)
+
+    def save(self, *args, **kwargs):
+        super().save()
+
+        if not self.slug:
+            self.slug = f'{slugify(self.titulo)}-{str(self.pk)}'
+
+        if not self.data_publicacao:
+            if self.publicado:
+                self.data_publicacao = timezone.now()
+            else:
+                self.data_publicacao = None
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.titulo

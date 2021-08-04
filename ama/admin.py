@@ -30,3 +30,21 @@ class MensagemAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Mensagem, MensagemAdmin)
+
+class ProjetoAdmin(SummernoteModelAdmin):
+    list_display = ('pk', 'titulo', 'data_publicacao', 'publicado', )
+    list_display_links = ('pk', 'titulo', 'data_publicacao', )
+    list_editable = ('publicado', )
+    summernote_fields = ('texto')
+
+
+admin.site.register(models.Projeto, ProjetoAdmin)
+
+class EventoAdmin(SummernoteModelAdmin):
+    list_display = ('pk', 'titulo', 'data_publicacao', 'publicado', )
+    list_display_links = ('pk', 'titulo', 'data_publicacao', )
+    list_editable = ('publicado', )
+    summernote_fields = ('texto')
+
+
+admin.site.register(models.Evento, EventoAdmin)

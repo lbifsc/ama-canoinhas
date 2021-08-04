@@ -5,7 +5,7 @@ from . import forms
 from . import models
 from django.views import View
 from django.contrib import messages
-from .filters import NoticiaFilterSet, MensagemFilterSet, ParceiroFilterSet
+from .filters import NoticiaFilterSet, MensagemFilterSet, ParceiroFilterSet, ProjetoFilterSet, EventoFilterSet
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView, DetailView
@@ -151,7 +151,10 @@ class DetalhesNoticia(DetailView):
 
 
 class Sobre(View):
-    pass
+    template_name='ama/sobre.html'
+
+    def get(self, *args, **kwargs):
+        return render(self.request, 'ama/sobre.html')
 
 
 class Mensagem(View):
@@ -359,6 +362,8 @@ class Dashboard(LoginRequiredMixin, View):
             'mensagens': models.Mensagem.objects.all().order_by('lida'),
             'noticias': models.Noticia.objects.all(),
             'parceiros': models.Parceiro.objects.all(),
+            'projetos': models.Projeto.objects.all(),
+            'eventos': models.Evento.objects.all(),
         }
 
         self.renderizar = render(self.request, self.template_name, contexto)
@@ -400,3 +405,242 @@ class Logout(View):
 class Doacao(View):
     def get(self, *args, **kwargs):
         return render(self.request, 'ama/doacao.html')
+
+
+class EscreverProjeto(LoginRequiredMixin, View):
+    template_name = 'ama/escrever_projeto.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        contexto = {
+            'projeto_form': forms.ProjetoForm(self.request.POST or None, self.request.FILES or None)
+        }
+
+        self.projeto_form = contexto['projeto_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.projeto_form.is_valid():
+            return self.renderizar
+
+        projeto = self.proheto_form.save()
+
+        messages.success = (self.request, 'Notícia salva com sucesso!')
+
+        return redirect('ama:detalhes_projeto', slug=projeto.slug)
+
+
+class EditarProjeto(LoginRequiredMixin, View):
+    template_name = 'ama/escrever_projeto.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        self.projeto = get_object_or_404(
+            models.Projeto, slug=self.kwargs.get('slug'))
+        self.capa_atual_path = self.projeto.capa.path
+
+        contexto = {
+            'projeto_form': forms.ProjetoForm(
+                self.request.POST or None,
+                self.request.FILES or None,
+                instance=self.projeto,
+            ),
+        }
+
+        self.projeto_form = contexto['projeto_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.projeto_form.is_valid():
+            return self.renderizar
+
+        self.projeto.titulo = self.projeto_form['titulo'].value()
+        self.projeto.publicado = self.projeto_form['publicado'].value()
+        self.projeto.texto = self.projeto_form['texto'].value()
+
+        if self.request.FILES.get('capa'):
+            self.projeto.capa = self.request.FILES.get('capa')
+            os.remove(self.capa_atual_path)
+
+        self.projeto.save()
+
+        return redirect('ama:detalhes_projeto', slug=self.projeto.slug)
+
+
+@login_required
+def excluir_projeto(request, pk):
+    if request.is_ajax():
+        if request.POST:
+            projeto = get_object_or_404(models.Projeto, pk=pk)
+            os.remove(projeto.capa.path)
+            projeto.delete()
+
+            return JsonResponse('success', safe=False)
+
+
+class ListarProjetos(ListView):
+    model = models.Projeto
+    template_name = 'ama/listar_projetos.html'
+    paginate_by = 15
+    filterset_class = ProjetoFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
+
+
+class DetalhesProjeto(DetailView):
+    model = models.Projeto
+    template_name = 'ama/detalhes_projeto.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['projeto'] = get_object_or_404(
+                models.Projeto,
+                slug=self.kwargs.get('slug'),
+            )
+        else:
+            context['projeto'] = get_object_or_404(
+                models.Projeto,
+                slug=self.kwargs.get('slug'),
+                publicado=True,
+            )
+
+        return context
+
+
+
+class EscreverEvento(LoginRequiredMixin, View):
+    template_name = 'ama/escrever_evento.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        contexto = {
+            'evento_form': forms.EventoForm(self.request.POST or None, self.request.FILES or None)
+        }
+
+        self.evento_form = contexto['evento_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.evento_form.is_valid():
+            return self.renderizar
+
+        evento = self.evento_form.save()
+
+        messages.success = (self.request, 'Notícia salva com sucesso!')
+
+        return redirect('ama:detalhes_evento', slug=evento.slug)
+
+
+class EditarEvento(LoginRequiredMixin, View):
+    template_name = 'ama/escrever_evento.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        self.evento = get_object_or_404(
+            models.Evento, slug=self.kwargs.get('slug'))
+        self.capa_atual_path = self.evento.capa.path
+
+        contexto = {
+            'evento_form': forms.EventoForm(
+                self.request.POST or None,
+                self.request.FILES or None,
+                instance=self.evento,
+            ),
+        }
+
+        self.evento_form = contexto['evento_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.evento_form.is_valid():
+            return self.renderizar
+
+        self.evento.titulo = self.evento_form['titulo'].value()
+        self.evento.publicado = self.evento_form['publicado'].value()
+        self.evento.texto = self.evento_form['texto'].value()
+
+        if self.request.FILES.get('capa'):
+            self.evento.capa = self.request.FILES.get('capa')
+            os.remove(self.capa_atual_path)
+
+        self.evento.save()
+
+        return redirect('ama:detalhes_evento', slug=self.evento.slug)
+
+
+@login_required
+def excluir_evento(request, pk):
+    if request.is_ajax():
+        if request.POST:
+            evento = get_object_or_404(models.Evento, pk=pk)
+            os.remove(evento.capa.path)
+            evento.delete()
+
+            return JsonResponse('success', safe=False)
+
+
+class ListarEventos(ListView):
+    model = models.Evento
+    template_name = 'ama/listar_eventos.html'
+    paginate_by = 15
+    filterset_class = EventoFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
+
+
+class DetalhesEvento(DetailView):
+    model = models.Evento
+    template_name = 'ama/detalhes_evento.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['evento'] = get_object_or_404(
+                models.Evento,
+                slug=self.kwargs.get('slug'),
+            )
+        else:
+            context['evento'] = get_object_or_404(
+                models.Evento,
+                slug=self.kwargs.get('slug'),
+                publicado=True,
+            )
+
+        return context
