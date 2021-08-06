@@ -70,12 +70,11 @@ a:hover h4 {
 }
 
 .nav-link {
-    color: #00ff00;
     text-decoration: none;
 }
 
-.nav-link {
-    color: black;
+#navbarmain .nav-link {
+    color: white;
 }
 
 .nav-tabs .nav-link.active h4 {
@@ -84,6 +83,10 @@ a:hover h4 {
 
 .mt-nav {
     margin-top: 120px;
+}
+
+.header-top-bar {
+    padding: 0px;
 }
 
 /* #tabs {
