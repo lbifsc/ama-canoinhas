@@ -431,9 +431,9 @@ class EscreverProjeto(LoginRequiredMixin, View):
         if not self.projeto_form.is_valid():
             return self.renderizar
 
-        projeto = self.proheto_form.save()
+        projeto = self.projeto_form.save()
 
-        messages.success = (self.request, 'Notícia salva com sucesso!')
+        messages.success = (self.request, 'Projeto salvo com sucesso!')
 
         return redirect('ama:detalhes_projeto', slug=projeto.slug)
 
