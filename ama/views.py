@@ -1,17 +1,17 @@
-import os
 
-from django.db.models import query
+import os
 from . import forms
 from . import models
 from django.views import View
+from django.db.models import query
 from django.contrib import messages
-from .filters import NoticiaFilterSet, MensagemFilterSet, ParceiroFilterSet, ProjetoFilterSet, EventoFilterSet
 from django.http.response import JsonResponse
-from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect, render
+from .filters import NoticiaFilterSet, MensagemFilterSet, ParceiroFilterSet, ProjetoFilterSet, EventoFilterSet
 
 
 class Index(View):
@@ -275,7 +275,10 @@ class AdicionarParceiro(LoginRequiredMixin, View):
 
         self.parceiro_form.save()
 
-        messages.success(self.request, 'Parceiro adicionado com sucesso!')
+        messages.success(
+            self.request,
+            'Parceiro adicionado com sucesso!', 
+        )
 
         return redirect('ama:adicionar_parceiro')
 
