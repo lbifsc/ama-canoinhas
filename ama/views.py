@@ -356,23 +356,8 @@ def excluir_parceiro(request, pk):
 
 
 class Dashboard(LoginRequiredMixin, View):
-    template_name = 'ama/dashboard.html'
-
-    def setup(self, *args, **kwargs):
-        super().setup(*args, **kwargs)
-
-        contexto = {
-            'mensagens': models.Mensagem.objects.all().order_by('lida'),
-            'noticias': models.Noticia.objects.all(),
-            'parceiros': models.Parceiro.objects.all(),
-            'projetos': models.Projeto.objects.all(),
-            'eventos': models.Evento.objects.all(),
-        }
-
-        self.renderizar = render(self.request, self.template_name, contexto)
-
     def get(self, *args, **kwargs):
-        return self.renderizar
+        return redirect('ama:mensagens')
 
 
 class Login(View):

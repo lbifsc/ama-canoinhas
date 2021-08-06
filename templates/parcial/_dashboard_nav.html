@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <section class="section-top">
+        <div class="container">
+            <div class="card shadow-lg">
+                <div class="card-content">
+                    <div class="card-header">
+                        <nav class="nav nav-tabs">
+                            <a class="nav-item nav-link" href="{% url 'ama:dashboard' %}">Mensagens</a>
+                            <a class="nav-item nav-link" href="{% url 'ama:listar_noticias' %}">Notícias</a>
+                            <a class="nav-item nav-link" href="{% url 'ama:listar_projetos' %}">Projetos</a>
+                            <a class="nav-item nav-link" href="{% url 'ama:listar_eventos' %}">Eventos</a>
+                            <a class="nav-item nav-link" href="{% url 'ama:parceiros' %}">Parceiros</a>
+                        </nav>
+                    </div>
+                    <div class="card-body">
+                        {% block dashboard_content %}
+                        
+                        {% endblock dashboard_content %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock conteudo %}
+
+{% block scripts %}
+    {% block dashboard_scripts %}
+        
+    {% endblock dashboard_scripts %}
+{% endblock scripts %}

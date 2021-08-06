@@ -15,7 +15,7 @@ urlpatterns = [
 
     # Mensagem
     path('contato/', views.Mensagem.as_view(), name='contato'),
-    path('mensagens', views.ListarMensagens.as_view(), name='mensagens'),
+    path('dashboard/mensagens/', views.ListarMensagens.as_view(), name='mensagens'),
     path('detalhes_mensagem/<int:pk>', views.DetalhesMensagem.as_view(), name='detalhes_mensagem'),
     path('excluir_mensagem/<int:pk>', views.excluir_mensagem, name='excluir_mensagem'),
     path('marcar_lida/<int:pk>', views.marcar_lida, name='marcar_lida'),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('adicionar_parceiro/', views.AdicionarParceiro.as_view(), name='adicionar_parceiro'),
     path('editar_parceiro/<int:pk>', views.EditarParceiro.as_view(), name='editar_parceiro'),
     path('excluir_parceiro/<int:pk>', views.excluir_parceiro, name='excluir_parceiro'),
-    path('parceiros', views.ListarParceiros.as_view(), name='parceiros'),
+    path('dashboard/parceiros/', views.ListarParceiros.as_view(), name='parceiros'),
 
     # Sobre
     path('sobre/', views.Sobre.as_view(), name='sobre'), 
