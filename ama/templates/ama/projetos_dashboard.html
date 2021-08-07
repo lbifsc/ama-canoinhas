@@ -28,8 +28,8 @@
             <div class="col-lg-4 mb-5">
                 <div class="card shadow-lg">
                     <div class="card-content">
-                        <div class="card-header">
-                            <img src="{{ projeto.capa.url }}" alt="{{ projeto }}" class="img-fluid">
+                        <div class="card-header" style="height: 200px;">
+                            <img src="{{ projeto.capa.url }}" alt="{{ projeto }}" class="img-fluid mx-auto d-block h-100 w-auto">
                         </div>
                         <div class="card-body">
                             <a href="{% url 'ama:detalhes_projeto' projeto.slug %}">
@@ -39,7 +39,7 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <a href="" class="btn btn-primary w-100">Editar</a>
+                                    <a href="{% url 'ama:editar_projeto' projeto.slug %}" class="btn btn-primary w-100">Editar</a>
                                 </div>
                                 <div class="col-lg-6">
                                     <button class="btn btn-danger w-100">Excluir</button>
