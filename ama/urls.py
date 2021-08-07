@@ -51,4 +51,5 @@ urlpatterns = [
     path('excluir_evento/<int:pk>', views.excluir_evento, name='excluir_evento'),
     path('detalhes_evento/<slug>', views.DetalhesEvento.as_view(), name='detalhes_evento'),
     path('listar_evento/', view=views.ListarEventos.as_view(), name='listar_eventos'),
+    path('dashboard/eventos/', view=views.DashboardEventos.as_view(), name='dashboard_eventos'),
 ]

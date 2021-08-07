@@ -167,7 +167,7 @@ class EventoFilterSet(FilterSet):
 
 
 # Dashboard Flters
-class ProjetosNoticiasDashboardFilterSet(FilterSet):
+class DashboardFilterSet(FilterSet):
 
     ordenar = ChoiceFilter(
         method='ordenar_projetos',

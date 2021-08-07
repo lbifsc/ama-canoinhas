@@ -430,8 +430,7 @@ class EditarProjeto(LoginRequiredMixin, View):
     def setup(self, *args, **kwargs):
         super().setup(*args, **kwargs)
 
-        self.projeto = get_object_or_404(
-            models.Projeto, slug=self.kwargs.get('slug'))
+        self.projeto = get_object_or_404(models.Projeto, slug=self.kwargs.get('slug'))
         self.capa_atual_path = self.projeto.capa.path
 
         contexto = {
@@ -640,7 +639,7 @@ class DashboardNoticias(LoginRequiredMixin, ListView):
     model = models.Noticia
     template_name = 'ama/noticias_dashboard.html'
     paginate_by = 15
-    filterset_class = filters.ProjetosNoticiasDashboardFilterSet
+    filterset_class = filters.DashboardFilterSet
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -654,10 +653,10 @@ class DashboardNoticias(LoginRequiredMixin, ListView):
 
     
 class DashboardProjetos(LoginRequiredMixin, ListView):
-    model = models.Noticia
+    model = models.Projeto
     template_name = 'ama/projetos_dashboard.html'
     paginate_by = 15
-    filterset_class = filters.ProjetosNoticiasDashboardFilterSet
+    filterset_class = filters.DashboardFilterSet
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -668,3 +667,20 @@ class DashboardProjetos(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
         return context 
+
+
+class DashboardEventos(LoginRequiredMixin, ListView):
+    model = models.Evento
+    template_name = 'ama/eventos_dashboard.html'
+    paginate_by = 15
+    filterset_class = filters.DashboardFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, placeholder='Buscar Eventos')
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['filterset'] = self.filterset
+        return context
