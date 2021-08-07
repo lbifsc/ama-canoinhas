@@ -2,6 +2,7 @@
 import os
 from . import forms
 from . import models
+from . import filters
 from django.views import View
 from django.db.models import query
 from django.contrib import messages
@@ -644,3 +645,20 @@ class DashboardNoticias(LoginRequiredMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
         context['noticias'] = models.Noticia.objects.all()
         return context
+
+    
+class DashboardProjetos(LoginRequiredMixin, ListView):
+    model = models.Noticia
+    template_name = 'ama/projetos_dashboard.html'
+    paginate_by = 15
+    filterset_class = filters.ProjetosDashboardFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context 

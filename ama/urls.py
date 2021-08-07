@@ -43,6 +43,7 @@ urlpatterns = [
     path('excluir_projeto/<int:pk>', views.excluir_projeto, name='excluir_projeto'),
     path('detalhes_projeto/<slug>', views.DetalhesProjeto.as_view(), name='detalhes_projeto'),
     path('listar_projetos/', view=views.ListarProjetos.as_view(), name='listar_projetos'),
+    path('dashboard/projetos/', view=views.DashboardProjetos.as_view(), name='dashboard_projetos'),
 
     # Eventos
     path('escrever_evento/', views.EscreverEvento.as_view(), name='escrever_evento'),
