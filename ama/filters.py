@@ -167,11 +167,8 @@ class EventoFilterSet(FilterSet):
 
 
 # Dashboard Flters
-class NoticiasDashboardFilterSet(FilterSet):
-    pass 
+class ProjetosNoticiasDashboardFilterSet(FilterSet):
 
-
-class ProjetosDashboardFilterSet(FilterSet):
     ordenar = ChoiceFilter(
         method='ordenar_projetos',
         choices=(
@@ -188,12 +185,14 @@ class ProjetosDashboardFilterSet(FilterSet):
         model = models.Projeto
         fields = {}
 
-    def __init__(self, data, *args, **kwargs):
+    def __init__(self, data, placeholder, *args, **kwargs):
         data = data.copy()
         super().__init__(data=data, *args, **kwargs) 
 
+        self.placeholder = placeholder
+
         self.filters['ordenar'].field.widget.attrs.update({'class': 'form-control'})
-        self.filters['buscar'].field.widget.attrs.update({'class': 'form-control h-100', 'placeholder': 'Buscar Projeto'})
+        self.filters['buscar'].field.widget.attrs.update({'class': 'form-control h-100', 'placeholder': self.placeholder})
 
     def ordenar_projetos(self, queryset, name, value):
         return queryset.order_by(value)

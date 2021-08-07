@@ -640,10 +640,16 @@ class DashboardNoticias(LoginRequiredMixin, ListView):
     model = models.Noticia
     template_name = 'ama/noticias_dashboard.html'
     paginate_by = 15
+    filterset_class = filters.ProjetosNoticiasDashboardFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, placeholder='Buscar Notícias')
+        return self.filterset.qs.distinct()
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['noticias'] = models.Noticia.objects.all()
+        context['filterset'] = self.filterset
         return context
 
     
@@ -651,11 +657,11 @@ class DashboardProjetos(LoginRequiredMixin, ListView):
     model = models.Noticia
     template_name = 'ama/projetos_dashboard.html'
     paginate_by = 15
-    filterset_class = filters.ProjetosDashboardFilterSet
+    filterset_class = filters.ProjetosNoticiasDashboardFilterSet
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, placeholder='Buscar Projetos')
         return self.filterset.qs.distinct()
 
     def get_context_data(self, *args, **kwargs):
