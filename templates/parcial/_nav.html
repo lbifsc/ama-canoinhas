@@ -48,13 +48,13 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'ama:dashboard' %}">Dashboard</a>
                     </li>
-                    <li>
-                        <a class="nav-link" href="{% url 'ama:logout' %}">Sair</a>
+                    <li class="nav-item active">
+                        <a class="nav-link btn btn-danger" href="{% url 'ama:logout' %}">Sair</a>
                     </li>
                 {% endif %}
 
-                <li class="nav-item active">
-                    <a class="nav-link btn btn-primary text-white" href="{% url 'ama:doacao' %}"> Faça uma doação</a>
+                <li class="ml-3 nav-item active">
+                    <a class="nav-link btn btn-primary" href="{% url 'ama:doacao' %}"> Faça uma doação</a>
                 </li>
             </ul>
         </div>

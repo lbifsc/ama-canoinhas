@@ -26,6 +26,7 @@ urlpatterns = [
     path('excluir_noticia/<int:pk>', views.excluir_noticia, name='excluir_noticia'),
     path('detalhes_noticia/<slug>', views.DetalhesNoticia.as_view(), name='detalhes_noticia'),
     path('listar_noticias/', view=views.ListarNoticias.as_view(), name='listar_noticias'),
+    path('dashboard/noticias/', view=views.DashboardNoticias.as_view(), name='dashboard_noticias'),
 
     # Parceiro
     path('adicionar_parceiro/', views.AdicionarParceiro.as_view(), name='adicionar_parceiro'),

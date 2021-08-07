@@ -280,7 +280,7 @@ class AdicionarParceiro(LoginRequiredMixin, View):
             'Parceiro adicionado com sucesso!', 
         )
 
-        return redirect('ama:adicionar_parceiro')
+        return redirect('ama:parceiros')
 
 
 class ListarParceiros(LoginRequiredMixin, ListView):
@@ -631,4 +631,16 @@ class DetalhesEvento(DetailView):
                 publicado=True,
             )
 
+        return context
+
+
+# DashboardViews
+class DashboardNoticias(LoginRequiredMixin, ListView):
+    model = models.Noticia
+    template_name = 'ama/noticias_dashboard.html'
+    paginate_by = 15
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['noticias'] = models.Noticia.objects.all()
         return context

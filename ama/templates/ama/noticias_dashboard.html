@@ -1,0 +1,68 @@
+{% extends 'parcial/_dashboard_nav.html' %}
+
+{% block dashboard_content %}
+    <div class="row mb-3">
+        <div class="col-lg-12">
+            <form action="" method="GET" class="">
+                <div class="col-lg">
+                    <div class="row">
+                        <div class="form-group col-lg-2">
+                            {{ filterset.form.data_publicacao }}
+                        </div>
+                        <div class="form-group col-lg-6">
+                            {{ filterset.form.titulo }}
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <input type="submit" class="btn-sm btn-primary" style="height: 100%;" value="Filtrar">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row col-lg-auto">
+        <div class="float-left">
+            <a href="{% url 'ama:escrever_noticia' %}" typy="button" class="btn btn-primary">Escrever Notícia</a>
+        </div>
+    </div>
+    <div class="row mt-4">
+        {% for noticia in page_obj %}
+            <div class="col-lg-4 mb-5">
+                <div>
+                    <div class="card shadow-lg">
+                        <div class="card-header align-items-center">
+                            <img src="{{ noticia.capa.url }}" alt="{{ noticia }}" 
+                                class="img-fluid capa-noticia w-100">
+                        </div>
+                        <div class="card-body text-justify">
+                            <p>Notícia públicada em {{ noticia.data_publicacao }}</p>
+                            <hr>
+                            <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                                <h5 class="h5-hover">{{ noticia }}</h5>
+                            </a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a class="btn btn-primary w-100" href="{% url 'ama:editar_noticia' noticia.slug %}">Editar</a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button class="btn btn-danger w-100">Excluir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-lg-auto">
+            {% include 'parcial/_pagination.html' %}
+        </div>
+    </div>
+{% endblock dashboard_content %}
+
+{% block dashboard_scripts %}
+
+{% endblock dashboard_scripts %}
