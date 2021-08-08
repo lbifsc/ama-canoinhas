@@ -1,7 +1,8 @@
 {% extends 'parcial/_dashboard_nav.html' %}
+{% load static %}
 
 {% block dashboard_content %}
-    <div class="row mb-3">
+    <div class="row">
         <div class="col-lg-12">
             <form action="" method="GET" class="">
                 <div class="form-row">
@@ -45,7 +46,7 @@
                                     <a class="btn btn-primary w-100" href="{% url 'ama:editar_noticia' noticia.slug %}">Editar</a>
                                 </div>
                                 <div class="col-lg-6">
-                                    <button class="btn btn-danger w-100">Excluir</button>
+                                    <button class="btn btn-danger w-100" onclick="excluir_noticia({{ noticia.pk }})">Excluir</button>
                                 </div>
                             </div>
                         </div>
@@ -62,5 +63,5 @@
 {% endblock dashboard_content %}
 
 {% block dashboard_scripts %}
-
+    <script src="{% static 'custom/js/noticia.js' %}"></script>
 {% endblock dashboard_scripts %}
