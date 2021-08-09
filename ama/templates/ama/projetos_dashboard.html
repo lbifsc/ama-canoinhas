@@ -1,4 +1,5 @@
 {% extends 'parcial/_dashboard_nav.html' %}
+{% load static %}
 
 {% block dashboard_content %}
     <div class="row">
@@ -25,7 +26,7 @@
     </div>
     <div class="row mt-4">
         {% for projeto in filterset.qs %}
-            <div class="col-lg-4 mb-5">
+            <div id="projeto_{{ projeto.pk }}" class="col-lg-4 mb-5">
                 <div class="card shadow-lg">
                     <div class="card-content">
                         <div class="card-header" style="height: 200px;">
@@ -42,7 +43,7 @@
                                     <a href="{% url 'ama:editar_projeto' projeto.slug %}" class="btn btn-primary w-100">Editar</a>
                                 </div>
                                 <div class="col-lg-6">
-                                    <button class="btn btn-danger w-100">Excluir</button>
+                                    <button class="btn btn-danger w-100" onclick="excluir_projeto({{ projeto.pk }})">Excluir</button>
                                 </div>
                             </div>
                         </div>
@@ -52,3 +53,7 @@
         {% endfor %}
     </div>
 {% endblock dashboard_content %}    
+
+{% block dashboard_scripts %}
+    <script src="{% static 'custom/js/projeto.js' %}"></script>
+{% endblock dashboard_scripts %}

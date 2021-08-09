@@ -43,8 +43,8 @@ class MensagemFilterSet(FilterSet):
         choices={
             ('-data', 'Mais recentes'),
             ('data', 'Mais antigas'),
-            ('lida', 'Não lidas'),
-            ('-lida', 'Lidas'),
+            ('-lida', 'Não lidas'),
+            ('lida', 'Lidas'),
         },
         method = 'filter_select_order',
     )
