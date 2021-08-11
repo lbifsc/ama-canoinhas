@@ -31,23 +31,23 @@
                         {% for noticia in ultimas_noticias %}
                             {% if noticia == ultimas_noticias.0 %}
                                 <div class="carousel-item active">
-                                    <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
-                                            <h4 class="text-black">{{ noticia }}</h4>
-                                        </a>
-                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}" class="btn btn-primary">Saiba Mais</a>
-                                    </div>
+                                    <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                                        <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
+                                        <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.8);">
+                                            <h4 class="text-light">{{ noticia }}</h4>
+                                        <div class="btn btn-primary">Saiba Mais</div>
+                                        </div>
+                                    </a>
                                 </div>
                             {% else %}
                                 <div class="carousel-item">
-                                    <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
-                                            <h4 class="text-black">{{ noticia }}</h4>
-                                        </a>
-                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}" class="btn btn-primary">Saiba Mais</a>
-                                    </div>
+                                    <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                                        <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
+                                        <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.8);">
+                                            <h4 class="text-light">{{ noticia }}</h4>
+                                        <div class="btn btn-primary">Saiba Mais</div>
+                                        </div>
+                                    </a>
                                 </div>
                             {% endif %}
                         {% endfor %}
