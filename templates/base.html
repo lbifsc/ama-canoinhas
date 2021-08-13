@@ -8,7 +8,7 @@
 	<title>AMA Canoinhas</title>
 </head>
 
-<body id="top">
+<body id="bg" style="">
 
 	<header>
 		<div class="header-top-bar fixed-top">
@@ -18,7 +18,7 @@
 		</div>
 	</header>
 
-	<main style="margin-top: 120px">
+	<main>
 		<section>
 			<div class="container">
 				{% include 'parcial/_messages.html' %}
@@ -36,15 +36,20 @@
 				<div class="col-lg-4 mr-auto col-sm-6">
 					<div class="widget mb-5 mb-lg-0">
 						<div class="logo mb-4">
-							<img src="images/logo.png" alt="" class="img-fluid">
+							<img id="logo-image" src="{% static 'images/ama-icon.png' %}" alt="" class="img-fluid">
 						</div>
-						<p>Associação de Pais e Amigos dos Autistas.</p>
-
-						<ul class="list-inline footer-socials mt-4">
-							<li class="list-inline-item"><a target="_blank" href="https://www.facebook.com/amacanoinhas"><i
-										class="icofont-facebook"></i></a></li>
-							<li class="list-inline-item"><a target="_blank" href="https://www.instagram.com/amacanoinhas"><i
-										class="icofont-instagram"></i></a></li>
+						<p class="text-center">Associação de Pais e Amigos dos Autistas.</p>
+						<ul class="list-inline footer-socials mt-4 text-center">
+							<li class="list-inline-item">
+								<a target="_blank" href="https://www.facebook.com/amacanoinhas">
+									<i class="icofont-facebook"></i>
+								</a>
+							</li>
+							<li class="list-inline-item">
+								<a target="_blank" href="https://www.instagram.com/amacanoinhas">
+									<i class="icofont-instagram"></i>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>
