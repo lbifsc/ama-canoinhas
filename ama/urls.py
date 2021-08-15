@@ -52,4 +52,12 @@ urlpatterns = [
     path('detalhes_evento/<slug>', views.DetalhesEvento.as_view(), name='detalhes_evento'),
     path('listar_evento/', view=views.ListarEventos.as_view(), name='listar_eventos'),
     path('dashboard/eventos/', view=views.DashboardEventos.as_view(), name='dashboard_eventos'),
+
+    # Indicações
+    path('escrever_indicacao/', views.EscreverIndicacao.as_view(), name='escrever_indicacao'),
+    path('editar_indicacao/<slug>', views.EditarIndicacao.as_view(), name='editar_indicacao'),
+    path('excluir_indicacao/<int:pk>', views.excluir_indicacao, name='excluir_indicacao'),
+    path('detalhes_indicacao/<slug>', views.DetalhesIndicacao.as_view(), name='detalhes_indicacao'),
+    path('listar_indicacoes/', view=views.ListarIndicacoes.as_view(), name='listar_indicacoes'),
+    path('dashboard/indicacoes/', view=views.DashboardIndicacoes.as_view(), name='dashboard_indicacoes'),
 ]

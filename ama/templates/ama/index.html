@@ -17,11 +17,11 @@
                                 </div>
                                 <div class="row">
                                     {% for projeto in ultimos_projetos %}
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12 mb-3">
                                             <a href="{% url 'ama:detalhes_projeto' projeto.slug %}">
                                                 <div class="card shadow-lg">
-                                                    <div class="card-content text-justify">
-                                                        <div class="card-header" style="height: 150px;">
+                                                    <div class="card-content text-center">
+                                                        <div class="card-header" style="height: 200px;">
                                                             <img class="img-fluid h-100 w-auto mx-auto d-block" src="{{ projeto.capa.url }}" alt="">
                                                         </div>
                                                         <div class="card-body">
@@ -32,7 +32,7 @@
                                             </a>
                                         </div>
                                     {% endfor %}
-                                </div>            
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,18 +49,15 @@
                                 </div>
                                 <div class="row">
                                     {% for evento in ultimos_eventos %}
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12 mb-3">
                                             <a href="{% url 'ama:detalhes_evento' evento.slug %}">
                                                 <div class="card shadow-lg">
-                                                    <div class="card-content text-justify">
-                                                        <div class="card-header" style="height: 150px;">
+                                                    <div class="card-content text-center">
+                                                        <div class="card-header" style="height: 200px;">
                                                             <img class="img-fluid h-100 w-auto mx-auto d-block" src="{{ evento.capa.url }}" alt="">
                                                         </div>
                                                         <div class="card-body">
                                                             <h5>{{ evento.titulo }}</h5>
-                                                        </div>
-                                                        <div class="footer">
-                                                            <span>Públicado em: {{ evento.data_publicacao }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -78,64 +75,147 @@
     <!-- Slider Start -->
     <section class="section-top">
         <div class="container">
-            <div>
-                <div class="row justify-content-center">
-                    <div class="col-auto section-title">
-                        <h2>Últimas Notícias</h2>
-                        <div class="divider mx-auto my-4"></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow-lg">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-auto section-title">
+                                        <h2>Últimas Notícias</h2>
+                                        <div class="divider mx-auto my-4"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div id="carouselNoticias" class="carousel slide" data-ride="carousel">
+                                        {% if ultimas_noticias.count >= 2 %}
+                                            <ol class="carousel-indicators">
+                                                {% for i in ultimas_noticias %}
+                                                    {% if not forloop.first %}
+                                                        <li data-target="#carouselNoticias" data-slide-to="{{ forloop }}"></li>
+                                                    {% else %}
+                                                        <li data-target="#carouselNoticias" data-slide-to="{{ forloop }}" class="active"></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ol>
+                                        {% endif %}  
+                                        <div class="carousel-inner">
+                                            {% for noticia in ultimas_noticias %}
+                                                {% if noticia == ultimas_noticias.0 %}
+                                                    <div class="carousel-item active">
+                                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                                                            <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
+                                                            <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.6);">
+                                                                <h4>{{ noticia }}</h4>
+                                                                <div class="btn btn-primary">Saiba Mais</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="carousel-item">
+                                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
+                                                            <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
+                                                            <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.6);">
+                                                                <h4>{{ noticia }}</h4>
+                                                                <div class="btn btn-primary">Saiba Mais</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        {% if ultimas_noticias.count > 1 %}
+                                            <a class="carousel-control-prev col-lg-1" style="background-color: grey;" href="#carouselNoticias" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next col-lg-1" style="background-color: grey;" href="#carouselNoticias" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-    
-                <div>
-                    <div id="carouselNoticias" class="carousel slide" data-ride="carousel">
-                        {% if ultimas_noticias.count >= 2 %}
-                            <ol class="carousel-indicators">
-                                {% for i in ultimas_noticias %}
-                                    {% if not forloop.first %}
-                                        <li data-target="#carouselNoticias" data-slide-to="{{ forloop }}"></li>
-                                    {% else %}
-                                        <li data-target="#carouselNoticias" data-slide-to="{{ forloop }}" class="active"></li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ol>
-                        {% endif %}  
-    
-                        <div class="carousel-inner">
-                            {% for noticia in ultimas_noticias %}
-                                {% if noticia == ultimas_noticias.0 %}
-                                    <div class="carousel-item active">
-                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
-                                            <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
-                                            <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.6);">
-                                                <h4>{{ noticia }}</h4>
-                                                <div class="btn btn-primary">Saiba Mais</div>
-                                            </div>
-                                        </a>
+            </div>
+        </div>
+    </section>
+    <section class="section-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card shadow-lg">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-auto section-title">
+                                        <h2 class="title-color">Indicações de Conteúdo</h2>
+                                        <div class="divider mx-auto my-4"></div>
                                     </div>
-                                {% else %}
-                                    <div class="carousel-item">
-                                        <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
-                                            <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
-                                            <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.6);">
-                                                <h4>{{ noticia }}</h4>
-                                                <div class="btn btn-primary">Saiba Mais</div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                                </div>
+                                <div class="row">
+                                    {% for indicacao in ultimas_indicacoes %}
+                                        <div class="col-lg-3">
+                                            <a href="{% url 'ama:detalhes_indicacao' indicacao.slug %}">
+                                                <div class="card shadow-lg">
+                                                    <div class="card-content text-center">
+                                                        <div class="card-header" style="height: 250px;">
+                                                            <img class="img-fluid h-100 w-auto mx-auto d-block" src="{{ indicacao.capa.url }}" alt="">
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5>{{ indicacao.titulo }}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
-    
-                        {% if ultimas_noticias.count > 1 %}
-                            <a class="carousel-control-prev col-lg-1" style="background-color: grey;" href="#carouselNoticias" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next col-lg-1" style="background-color: grey;" href="#carouselNoticias" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card shadow-lg">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-auto section-title">
+                                        <h3 class="title-color">Facebook</h3>
+                                        <div class="divider mx-auto my-4"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card shadow-lg">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-auto section-title">
+                                        <h3 class="title-color">Instagram</h3>
+                                        <div class="divider mx-auto my-4"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,29 +223,39 @@
     </section>
     <section class="section-top" id="parceiros-section">
         <div class="container">
-            <div id="id-parceiros" class="row justify-content-center">
-                <div class="col-auto">
-                    <div class="about-content mt-4 mt-lg-0 section-title">
-                        <h2>Nossos Parceiros</h2>
-                        <div class="divider mx-auto my-4"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
+            <div class="row">
                 <div class="col-lg-12">
-                    <div class="row">
-                        {% for parceiro in parceiros %}
-                            <div class="col-lg-4 mb-3">
-                                <div class="card shadow-lg">
-                                    <div class="card-header parceiro-header">
-                                        <h4>{{ parceiro }}</h4>
+                    <div class="card shadow-lg">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div id="id-parceiros" class="row justify-content-center">
+                                    <div class="col-auto">
+                                        <div class="about-content mt-4 mt-lg-0 section-title">
+                                            <h2>Nossos Parceiros</h2>
+                                            <div class="divider mx-auto my-4"></div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <img src="{{ parceiro.logo.url }}" alt="{{ parceiro }}" class="img-fluid parceiro-body">
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            {% for parceiro in parceiros %}
+                                                <div class="col-lg-4 mb-3">
+                                                    <div class="card shadow-lg">
+                                                        <div class="card-header parceiro-header">
+                                                            <h4>{{ parceiro }}</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <img src="{{ parceiro.logo.url }}" alt="{{ parceiro }}" class="img-fluid parceiro-body">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

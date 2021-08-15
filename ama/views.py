@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import get_object_or_404, redirect, render
-from .filters import NoticiaFilterSet, MensagemFilterSet, ParceiroFilterSet, ProjetoFilterSet, EventoFilterSet
+from .filters import NoticiaFilterSet, MensagemFilterSet, ParceiroFilterSet, ProjetoFilterSet, EventoFilterSet, IndicacaoFilterSet
 
 
 class Index(View):
@@ -22,9 +22,10 @@ class Index(View):
         super().setup(*args, **kwargs)
 
         contexto = {
-            'ultimos_projetos': models.Projeto.objects.filter(publicado=True).order_by('-data_publicacao')[:4],
-            'ultimos_eventos': models.Evento.objects.filter(publicado=True).order_by('-data_publicacao')[:4],
+            'ultimos_projetos': models.Projeto.objects.filter(publicado=True).order_by('-data_publicacao')[:2],
+            'ultimos_eventos': models.Evento.objects.filter(publicado=True).order_by('-data_publicacao')[:2],
             'ultimas_noticias': models.Noticia.objects.filter(publicado=True).order_by('-data_publicacao')[:5],
+            'ultimas_indicacoes' : models.Indicacao.objects.filter(publicado=True).order_by('-data_publicacao')[:4],
             'parceiros': models.Parceiro.objects.all(),
         }
 
@@ -540,7 +541,7 @@ class EscreverEvento(LoginRequiredMixin, View):
 
         evento = self.evento_form.save()
 
-        messages.success = (self.request, 'Notícia salva com sucesso!')
+        messages.success = (self.request, 'Evento salvo com sucesso!')
 
         return redirect('ama:detalhes_evento', slug=evento.slug)
 
@@ -636,6 +637,125 @@ class DetalhesEvento(DetailView):
         return context
 
 
+class EscreverIndicacao(LoginRequiredMixin, View):
+    template_name = 'ama/escrever_indicacao.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        contexto = {
+            'indicacao_form': forms.IndicacaoForm(self.request.POST or None, self.request.FILES or None)
+        }
+
+        self.indicacao_form = contexto['indicacao_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.indicacao_form.is_valid():
+            return self.renderizar
+
+        indicacao = self.indicacao_form.save()
+
+        messages.success = (self.request, 'Indicação salva com sucesso!')
+
+        return redirect('ama:detalhes_indicacao', slug=indicacao.slug)
+
+
+class EditarIndicacao(LoginRequiredMixin, View):
+    template_name = 'ama/escrever_indicacao.html'
+
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        self.indicacao = get_object_or_404(
+            models.Indicacao, slug=self.kwargs.get('slug'))
+        self.capa_atual_path = self.indicacao.capa.path
+
+        contexto = {
+            'indicacao_form': forms.IndicacaoForm(
+                self.request.POST or None,
+                self.request.FILES or None,
+                instance=self.indicacao,
+            ),
+        }
+
+        self.indicacao_form = contexto['indicacao_form']
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
+
+    def post(self, *args, **kwargs):
+        if not self.indicacao_form.is_valid():
+            return self.renderizar
+
+        self.indicacao.titulo = self.indicacao_form['titulo'].value()
+        self.indicacao.publicado = self.indicacao_form['publicado'].value()
+        self.indicacao.texto = self.indicacao_form['texto'].value()
+
+        if self.request.FILES.get('capa'):
+            self.indicacao.capa = self.request.FILES.get('capa')
+            os.remove(self.capa_atual_path)
+
+        self.indicacao.save()
+
+        return redirect('ama:detalhes_indicacao', slug=self.indicacao.slug)
+
+
+@login_required
+def excluir_indicacao(request, pk):
+    if request.is_ajax():
+        if request.POST:
+            indicacao = get_object_or_404(models.Indicacao, pk=pk)
+            os.remove(indicacao.capa.path)
+            indicacao.delete()
+
+            return JsonResponse('success', safe=False)
+
+
+class ListarIndicacoes(ListView):
+    model = models.Indicacao
+    template_name = 'ama/listar_indicacoes.html'
+    paginate_by = 15
+    filterset_class = IndicacaoFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('-data_publicacao')
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
+
+
+class DetalhesIndicacao(DetailView):
+    model = models.Indicacao
+    template_name = 'ama/detalhes_indicacao.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['indicacao'] = get_object_or_404(
+                models.Indicacao,
+                slug=self.kwargs.get('slug'),
+            )
+        else:
+            context['indicacao'] = get_object_or_404(
+                models.Indicacao,
+                slug=self.kwargs.get('slug'),
+                publicado=True,
+            )
+
+        return context
+
+
 # DashboardViews
 class DashboardNoticias(LoginRequiredMixin, ListView):
     model = models.Noticia
@@ -680,6 +800,22 @@ class DashboardEventos(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset, placeholder='Buscar Eventos')
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['filterset'] = self.filterset
+        return context
+
+class DashboardIndicacoes(LoginRequiredMixin, ListView):
+    model = models.Indicacao
+    template_name = 'ama/indicacoes_dashboard.html'
+    paginate_by = 15
+    filterset_class = filters.DashboardFilterSet
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, placeholder='Buscar Indicações')
         return self.filterset.qs.distinct()
 
     def get_context_data(self, *args, **kwargs):
