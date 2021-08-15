@@ -22,7 +22,9 @@ class Index(View):
         super().setup(*args, **kwargs)
 
         contexto = {
-            'ultimas_noticias': models.Noticia.objects.filter(publicado=True).order_by('data_publicacao')[:5],
+            'ultimos_projetos': models.Projeto.objects.filter(publicado=True).order_by('-data_publicacao')[:4],
+            'ultimos_eventos': models.Evento.objects.filter(publicado=True).order_by('-data_publicacao')[:4],
+            'ultimas_noticias': models.Noticia.objects.filter(publicado=True).order_by('-data_publicacao')[:5],
             'parceiros': models.Parceiro.objects.all(),
         }
 
@@ -120,7 +122,7 @@ class ListarNoticias(ListView):
     filterset_class = NoticiaFilterSet
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by('-data_publicacao')
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
@@ -197,7 +199,7 @@ class ListarMensagens(LoginRequiredMixin, ListView):
     ordering = ['-data', ]
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by('-data')
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
@@ -483,7 +485,7 @@ class ListarProjetos(ListView):
     filterset_class = ProjetoFilterSet
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by('-data_publicacao')
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
@@ -603,7 +605,7 @@ class ListarEventos(ListView):
     filterset_class = EventoFilterSet
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by('-data_publicacao')
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 

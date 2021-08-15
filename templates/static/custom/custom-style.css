@@ -64,9 +64,13 @@ a p {
     color: rgb(0, 0, 0);
 }
 
-a:hover h4 {
+a:hover h4, a:hover h5, a:hover h6 {
     color: #e12454;
     text-decoration: none;
+}
+
+a h4 {
+    color: white;
 }
 
 .h5-hover:hover {
