@@ -123,7 +123,7 @@ class ListarNoticias(ListView):
     filterset_class = NoticiaFilterSet
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-data_publicacao')
+        queryset = super().get_queryset().filter(publicado=True).order_by('-data_publicacao')
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
@@ -486,7 +486,7 @@ class ListarProjetos(ListView):
     filterset_class = ProjetoFilterSet
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-data_publicacao')
+        queryset = super().get_queryset().filter(publicado=True).order_by('-data_publicacao')
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
@@ -606,7 +606,7 @@ class ListarEventos(ListView):
     filterset_class = EventoFilterSet
 
     def get_queryset(self):
-        queryset = super().get_queryset().order_by('-data_publicacao')
+        queryset = super().get_queryset().filter(publicado=True).order_by('-data_publicacao')
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 

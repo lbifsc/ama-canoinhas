@@ -1,68 +1,70 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-    <section class="section-top mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center section-title">
-                    <h2>Eventos</h2>
-                    <div class="divider mx-auto my-4"></div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-lg-12">
-                    <form action="" method="GET" class="">
-                        <div class="col-lg">
-                            <div class="form-row">
-                                <div class="form-group col-lg-2">
-                                    {{ filterset.form.data_publicacao }}
+<section class="section-top mb-5">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-content">
+                    <div class="card-header col-lg-12 text-center section-title">
+                        <h2>Eventos</h2>
+                        <div class="divider mx-auto my-4"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-lg-12">
+                            <form action="" method="GET" class="">
+                                <div class="col-lg">
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-2">
+                                            {{ filterset.form.data_publicacao }}
+                                        </div>
+                                        <div class="form-group col-lg-9">
+                                            {{ filterset.form.titulo }}
+                                        </div>
+                                        <div class="form-group col-lg-1">
+                                            <input type="submit" class="btn-sm btn-primary h-100 w-100" value="Filtrar">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-lg-9">
-                                    {{ filterset.form.titulo }}
-                                </div>
-                                <div class="form-group col-lg-1">
-                                    <input type="submit" class="btn-sm btn-primary h-100 w-100" value="Filtrar">
-                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            {% for evento in page_obj %}
+                            <div class="col-lg-12 mb-3">
+                                <a href="{% url 'ama:detalhes_evento' evento.slug %}">
+                                    <div class="card shadow-lg">
+                                        <div class="card-header" style="height: 250px;">
+                                            <img src="{{ evento.capa.url }}" alt="{{ evento }}" 
+                                            class="img-fluid h-100 w-auto mx-auto d-block capa-noticia">
+                                        </div>
+                                        <div class="card-header text-justify">
+                                            <h5 class="h5-hover">{{ evento }}</h5>
+                                            <hr>
+                                            <p>{{ evento.data_publicacao }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-auto">
+                                {% include 'parcial/_pagination.html' %}
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="row">
-                {% for evento in page_obj %}
-                    <div class="col-lg-4 mb-5">
-                        <a href="{% url 'ama:detalhes_evento' evento.slug %}">
-                            <div>
-                                <div class="card shadow-lg align-items-center">
-                                    <div class="card-body" style="height: 200px;">
-                                        <img src="{{ evento.capa.url }}" alt="{{ evento }}" 
-                                            class="img-fluid h-100 w-auto mx-auto d-block capa-noticia">
-                                    </div>
-                                    <div class="card-footer text-justify">
-                                        <p>{{ evento.data_publicacao }}</p>
-                                        <hr>
-                                        <h5 class="h5-hover">{{ evento }}</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
                     </div>
-                {% endfor %}
-            </div>
-            <div class="row">
-                <div class="col-lg-auto">
-                    {% include 'parcial/_pagination.html' %}
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock conteudo %}
 
 {% block scripts %}
-    <script>
-        $(document).ready(function() {
-            console.log(document.getElementsByTagName('label'))
-            document.getElementsByTagName('label')[0].style.display = 'none'
-        });
-    </script>
+<script>
+    $(document).ready(function() {
+        console.log(document.getElementsByTagName('label'))
+        document.getElementsByTagName('label')[0].style.display = 'none'
+    });
+</script>
 {% endblock scripts %}
