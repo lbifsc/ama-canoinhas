@@ -21,7 +21,7 @@
                                             <a href="{% url 'ama:detalhes_projeto' projeto.slug %}">
                                                 <div class="card shadow-lg">
                                                     <div class="card-content text-center">
-                                                        <div class="card-header" style="height: 200px;">
+                                                        <div class="card-header fill" style="height: 200px;">
                                                             <img class="img-fluid h-100 w-auto mx-auto d-block" src="{{ projeto.capa.url }}" alt="">
                                                         </div>
                                                         <div class="card-body">
@@ -53,7 +53,7 @@
                                             <a href="{% url 'ama:detalhes_evento' evento.slug %}">
                                                 <div class="card shadow-lg">
                                                     <div class="card-content text-center">
-                                                        <div class="card-header" style="height: 200px;">
+                                                        <div class="card-header fill" style="height: 200px;">
                                                             <img class="img-fluid h-100 w-auto mx-auto d-block" src="{{ evento.capa.url }}" alt="">
                                                         </div>
                                                         <div class="card-body">
@@ -102,7 +102,7 @@
                                         <div class="carousel-inner">
                                             {% for noticia in ultimas_noticias %}
                                                 {% if noticia == ultimas_noticias.0 %}
-                                                    <div class="carousel-item active">
+                                                    <div class="carousel-item active fill">
                                                         <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
                                                             <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
                                                             <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.6);">
@@ -112,7 +112,7 @@
                                                         </a>
                                                     </div>
                                                 {% else %}
-                                                    <div class="carousel-item">
+                                                    <div class="carousel-item fill">
                                                         <a href="{% url 'ama:detalhes_noticia' noticia.slug %}">
                                                             <img class="img-fluid mx-auto d-block" src="{{ noticia.capa.url }}" alt="{{ noticia }}" style="height: 440px; width: auto; max-width: 100%;">
                                                             <div class="carousel-caption d-none d-md-block" style="background: rgba(0, 0, 0, 0.6);">

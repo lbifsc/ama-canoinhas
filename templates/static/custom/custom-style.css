@@ -112,3 +112,9 @@ a h4 {
 main{
     margin-top: 120px;
 }
+
+.fill img {
+    object-fit: cover;
+    min-width: 90%;
+    min-height: 90%
+}
