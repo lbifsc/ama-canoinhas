@@ -3,6 +3,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from django_summernote.widgets import SummernoteWidget
 from crispy_forms.layout import ButtonHolder, Layout, Row, Column, Submit
+from django.utils import timezone
 
 
 class MensagemForm(forms.ModelForm):
@@ -205,8 +206,14 @@ class EventoForm(forms.ModelForm):
         required=True
     )
 
-    data_evento = forms.DateInput(
-
+    data_evento = forms.DateField(
+        required=True,
+        label='Data do evento: ',
+        initial=timezone.now,
+        input_formats=['%d/%m/%Y'],
+        widget=forms.DateInput({
+            'class': 'datepicker',
+        })
     )
 
     publicado = forms.BooleanField(
@@ -237,10 +244,10 @@ class EventoForm(forms.ModelForm):
                 Column('capa', css_class='col-lg-12'),
             ),
             Row(
-                Column('data_evento', css_class='col-lg-12'),
+                Column('data_evento', css_class='col-lg-3'),
             ),
             Row(
-                Column('publicado', css_class='col-lg-12'),
+                Column('publicado', css_class='col-lg-3'),
             ),
             Row(
                 Column('texto', css_class='col-lg-12'),

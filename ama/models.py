@@ -85,10 +85,8 @@ class Evento(models.Model):
     capa = models.ImageField(upload_to='eventos/')
     texto = models.TextField()
     publicado = models.BooleanField(default=False)
-    data_publicacao = models.DateTimeField(
-        blank=True, null=True, verbose_name='Data de publicação')
-    data_evento = models.DateField(
-        blank=True, null=True, verbose_name='Data do evento')
+    data_publicacao = models.DateTimeField(blank=True, null=True, verbose_name='Data de publicação')
+    data_evento = models.DateField(blank=True, null=True, verbose_name='Data do evento')
     slug = models.SlugField(unique=True, blank=True, max_length=100)
 
     def save(self, *args, **kwargs):
