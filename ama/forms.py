@@ -205,6 +205,10 @@ class EventoForm(forms.ModelForm):
         required=True
     )
 
+    data_evento = forms.DateInput(
+
+    )
+
     publicado = forms.BooleanField(
         required=False
     )
@@ -217,7 +221,7 @@ class EventoForm(forms.ModelForm):
 
     class Meta:
         model = models.Evento
-        fields = ['titulo', 'capa', 'publicado', 'texto', ]
+        fields = ['titulo', 'capa', 'data_evento', 'publicado', 'texto', ]
 
     def __init__(self, *args, **kwargs):
         super(EventoForm, self).__init__(*args, **kwargs)
@@ -231,6 +235,9 @@ class EventoForm(forms.ModelForm):
             ),
             Row(
                 Column('capa', css_class='col-lg-12'),
+            ),
+            Row(
+                Column('data_evento', css_class='col-lg-12'),
             ),
             Row(
                 Column('publicado', css_class='col-lg-12'),

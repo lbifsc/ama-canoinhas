@@ -8,7 +8,7 @@ class Noticia(models.Model):
     capa = models.ImageField(upload_to='noticias/')
     texto = models.TextField()
     publicado = models.BooleanField(default=False)
-    data_publicacao = models.DateField(
+    data_publicacao = models.DateTimeField(
         blank=True, null=True, verbose_name='Data de publicação')
     slug = models.SlugField(unique=True, blank=True, max_length=100)
 
@@ -59,7 +59,7 @@ class Projeto(models.Model):
     capa = models.ImageField(upload_to='projetos/')
     texto = models.TextField()
     publicado = models.BooleanField(default=False)
-    data_publicacao = models.DateField(
+    data_publicacao = models.DateTimeField(
         blank=True, null=True, verbose_name='Data de publicação')
     slug = models.SlugField(unique=True, blank=True, max_length=100)
 
@@ -85,8 +85,10 @@ class Evento(models.Model):
     capa = models.ImageField(upload_to='eventos/')
     texto = models.TextField()
     publicado = models.BooleanField(default=False)
-    data_publicacao = models.DateField(
+    data_publicacao = models.DateTimeField(
         blank=True, null=True, verbose_name='Data de publicação')
+    data_evento = models.DateField(
+        blank=True, null=True, verbose_name='Data do evento')
     slug = models.SlugField(unique=True, blank=True, max_length=100)
 
     def save(self, *args, **kwargs):
@@ -111,7 +113,7 @@ class Indicacao(models.Model):
     capa = models.ImageField(upload_to='indicacao/')
     texto = models.TextField()
     publicado = models.BooleanField(default=False)
-    data_publicacao = models.DateField(
+    data_publicacao = models.DateTimeField(
         blank=True, null=True, verbose_name='Data de publicação')
     slug = models.SlugField(unique=True, blank=True, max_length=100)
 

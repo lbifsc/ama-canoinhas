@@ -1,34 +1,39 @@
 {% extends 'base.html' %}
 
 {% block conteudo %}
-    <section class="section-top">
-        <div class="container">
-            <div class="col-lg-12">
-                <div class="card shadow-lg">
-                    <div class="card-content">
-                        <div class="card-header col-lg-12 text-center section-title">
-                            <h2 class="title-color">{{ evento }}</h2>
+<section class="section-top">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-content">
+                    <div class="card-header col-lg-12 text-center section-title">
+                        <h2 class="title-color">{{ evento }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 text-center mt-5">
+                                <img src="{{ evento.capa.url }}" alt="{{ evento }}" class="img-fluid">
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-12 text-center mt-5">
-                                    <img src="{{ evento.capa.url }}" alt="{{ evento }}" class="img-fluid">
-                                </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-left mt-5 text-black">
+                                <hr>
+                                <p>Públicado em {{ evento.data_publicacao }}</p>
+                                <hr>
                             </div>
-                            <div class="row">
-                                <div class="col-auto text-left mt-5 text-black">
-                                    <p>Públicado em {{ evento.data_publicacao }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-justify text-black">
-                                    <p>{{ evento.texto | safe }}</p>
-                                </div>
+                        </div>
+                        <div class="col-lg-12 text-center section-title">
+                            <h1 class="title-color">Data do evento: {{ evento.data_evento }}</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-justify text-black">
+                                <p>{{ evento.texto | safe }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock conteudo %}
