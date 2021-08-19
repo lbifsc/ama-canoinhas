@@ -33,7 +33,27 @@ pip install -r requirements.txt
 ``
 SECRET_KEY = 'key_gerada' 
 `` 
+## Configuração do Banco de Dados MySQL:
+### Adicione o código abaixo, com suas devidos valores, no local_settings.
+### Lembre-se de criar o banco de dados no SGBD do MySQL.
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'nome_banco',
+        'HOST': 'host_mysql',
+        'PORT': 'porta',
+        'USER': 'usuario_mysql',
+        'PASSWORD': 'senha',
+    }
+}
+```
 
+## Após isso basta fazer as migrações:
+```
+python manage.py makemigrations
+python manage.py migrate
+```
 ## Rodando o servidor de forma local:
 ### Observação: para iniciar o servidor é necessário ativar o ambiente virtual!
 ``
