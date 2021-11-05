@@ -131,17 +131,3 @@ class Indicacao(models.Model):
 
     def __str__(self):
         return self.titulo
-
-
-class Produto(models.Model):
-    nome = models.CharField(max_length= 255)
-    quantidade = models.IntegerField()
-    preco = models.FloatField()
-    preco_promocional = models.FloatField(blank=True, null=True)
-    descricao = models.TextField()
-
-
-class ProdutoFoto(models.Model):
-    foto = models.ImageField(upload_to='produto/')
-    produto = models.ForeignKey(Produto, on_delete=models.DO_NOTHING)
-    

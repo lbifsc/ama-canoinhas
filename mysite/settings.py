@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ama',
+    'loja',
 
     'crispy_forms',
     'django_summernote',
