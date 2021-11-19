@@ -60,4 +60,8 @@ urlpatterns = [
     path('detalhes_indicacao/<slug>', views.DetalhesIndicacao.as_view(), name='detalhes_indicacao'),
     path('listar_indicacoes/', view=views.ListarIndicacoes.as_view(), name='listar_indicacoes'),
     path('dashboard/indicacoes/', view=views.DashboardIndicacoes.as_view(), name='dashboard_indicacoes'),
+
+    # Loja
+    path('loja/', view=views.LojaGeral.as_view(), name='loja_geral'),
+    path('loja/item/', view=views.LojaItem.as_view(), name='loja_item'),
 ]
