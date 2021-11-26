@@ -1,4 +1,4 @@
-var csrftoken = Cookies.get('csrftoken');
+let csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].value
 
 function excluir_noticia(pk) {
     if (confirm('Deseja realmente apagar esta notícia?')) {

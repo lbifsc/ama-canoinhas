@@ -26,7 +26,7 @@
     </div>
     <div class="row mt-4">
         {% for noticia in filterset.qs %}
-            <div class="col-lg-4 mb-5">
+            <div class="col-lg-4 mb-5" id="noticia_{{ noticia.pk }}">
                 <div>
                     <div class="card shadow-lg">
                         <div class="card-header" style="height: 200px;">
@@ -45,7 +45,8 @@
                                 <div class="col-lg-6">
                                     <a class="btn btn-primary w-100" href="{% url 'ama:editar_noticia' noticia.slug %}">Editar</a>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6">  
+						            {% csrf_token %}
                                     <button class="btn btn-danger w-100" onclick="excluir_noticia({{ noticia.pk }})">Excluir</button>
                                 </div>
                             </div>
