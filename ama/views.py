@@ -34,18 +34,6 @@ class Index(View):
     def get(self, *args, **kwargs):
         return self.renderizar
 
-class LojaGeral(View):
-    template_name = 'ama/loja_geral.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
-
-class LojaItem(View):
-    template_name = 'ama/loja_item.html'
-
-    def get(self,request):
-        return render(request, self.template_name)
-
 class EscreverNoticia(LoginRequiredMixin, View):
     template_name = 'ama/escrever_noticia.html'
 
