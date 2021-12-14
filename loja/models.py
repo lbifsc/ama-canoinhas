@@ -14,15 +14,22 @@ class Categoria(models.Model):
 
 class Produto(models.Model):
     nome = models.CharField(max_length= 255)
+    categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
     quantidade = models.PositiveIntegerField()
     preco = models.DecimalField(
         decimal_places=2, 
         max_digits=5,
     )
-    categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
-    preco_promocional = models.FloatField(blank=True, null=True)
+    preco_promocional = models.DecimalField(
+        decimal_places=2, 
+        max_digits=5, 
+        blank=True, 
+        null=True
+    )
     descricao = models.TextField()
 
+    def __str__(self):
+        return self.nome
 
 class ProdutoFoto(models.Model):
     foto = models.ImageField(upload_to='produto/')
