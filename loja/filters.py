@@ -5,38 +5,45 @@ from django.db.models.query_utils import Q
 from django_filters.filters import CharFilter, ChoiceFilter
 
 
-class DashboardFilterSet(FilterSet):
+class CategoriaFilterSet(FilterSet):
+    nome = CharFilter(method='nome_filter', )
 
-    ordenar = ChoiceFilter(
-        method='ordenar_projetos',
-        choices=(
-            ('-data_publicacao', 'Mais Recentes'),
-            ('data_publicacao', 'Mais Antigos'),
-            ('-publicado', 'Públicados'),
-            ('publicado', 'Não Públicados'),
-        ),
-    )
+    class Meta:
+        model = models.Categoria
+        fields = {}
 
-    buscar = CharFilter(method='buscar_projeto')
+    def __init__(self, data, *args, **kwargs):
+        data = data.copy()
+        data.setdefault('data', '-data')
+        super().__init__(data, *args, **kwargs)
+
+        self.filters['nome'].field.widget.attrs.update({
+            'class': 'form-control col-lg-12', 
+            'placeholder': 'Buscar categoria',
+            'style': 'height: 100%;',    
+        })
+
+    def nome_filter(self, queryset, name, value):
+        return queryset.filter(nome__icontains=value)
+
+
+class ProdutoFilterSet(FilterSet):
+    nome = CharFilter(method='nome_filter', )
 
     class Meta:
         model = models.Produto
         fields = {}
 
-    def __init__(self, data, placeholder, *args, **kwargs):
+    def __init__(self, data, *args, **kwargs):
         data = data.copy()
-        super().__init__(data=data, *args, **kwargs) 
+        data.setdefault('data', '-data')
+        super().__init__(data, *args, **kwargs)
 
-        self.placeholder = placeholder
+        self.filters['nome'].field.widget.attrs.update({
+            'class': 'form-control col-lg-12', 
+            'placeholder': 'Buscar produto',
+            'style': 'height: 100%;',    
+        })
 
-        self.filters['ordenar'].field.widget.attrs.update({'class': 'form-control'})
-        self.filters['buscar'].field.widget.attrs.update({'class': 'form-control h-100', 'placeholder': self.placeholder})
-
-    def ordenar_projetos(self, queryset, name, value):
-        return queryset.order_by(value)
-
-    def buscar_projeto(self, queryset, name, value):
-        return queryset.filter(
-            Q(titulo__icontains=value) | 
-            Q(texto__icontains=value) 
-        )
+    def nome_filter(self, queryset, name, value):
+        return queryset.filter(nome__icontains=value)

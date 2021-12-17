@@ -19,12 +19,7 @@
 	</header>
 
 	<main>
-		<section>
-			<div class="container">
-				{% include 'parcial/_messages.html' %}
-			</div>
-		</section>
-
+		{% include 'parcial/_messages.html' %}
 		{% block conteudo %}
 		{% endblock conteudo %}
 
@@ -209,6 +204,8 @@
 
 	<script src="{% static 'js/script.js' %}"></script>
 	<script src="{% static 'js/contact.js' %}"></script>
+
+	<script src="https://cdn2.woxo.tech/a.js#61bcda2bbbe9820016f4f290" async data-usrc></script>
 </body>
 
 </html>

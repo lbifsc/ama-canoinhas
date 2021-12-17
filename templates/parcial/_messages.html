@@ -1,8 +1,12 @@
 {% if messages %}
     {% for message in messages %}
-        <div id="message" class="alert {{ message.tags }} font-weight-bold alert-dismissible" role="alert">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{ message }}
+    <section class="section-top">
+        <div class="container">
+            <div id="message" class="alert {{ message.tags }} font-weight-bold alert-dismissible" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message }}
+            </div>
         </div>
+    </section>
     {% endfor %}
 {% endif %}

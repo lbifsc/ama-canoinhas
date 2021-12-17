@@ -5,20 +5,20 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
-    <section class="mt-5 mb-5">
-        <div class="container">
-            <div class="col-lg-12">
-                <div class="card shadow-lg">
-                    <div class="card-content">
-                        <div class="card-header text-center">
-                            <h2 class="title-color">Adicionar Categoria</h2>
-                        </div>
-                        <div class="card-body">
-                            {% crispy addcategoria_form %}
-                        </div>
+<section class="section-top">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-content">
+                    <div class="card-header text-center">
+                        <h2 class="title-color">Adicionar Categoria</h2>
+                    </div>
+                    <div class="card-body">
+                        {% crispy addcategoria_form %}
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock conteudo %}

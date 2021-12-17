@@ -1,7 +1,3 @@
-from django.shortcuts import render, redirect
-from django.views import View
-from . import forms
-from django.contrib.auth.mixins import LoginRequiredMixin
 import os
 from . import forms
 from . import models
@@ -20,18 +16,32 @@ from django.shortcuts import get_object_or_404, redirect, render
 class LojaGeral(View):
     template_name = 'loja/loja_geral.html'
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def setup(self, *args, **kwargs):
+        super().setup(*args, **kwargs)
+
+        contexto = {
+            'produtos': models.Produto.objects.all(),
+        }
+
+        self.renderizar = render(self.request, self.template_name, contexto)
+
+    def get(self, *args, **kwargs):
+        return self.renderizar
 
 
 class LojaItem(View):
+    model = models.Produto
     template_name = 'loja/loja_item.html'
 
-    def get(self,request):
-        return render(request, self.template_name)
+    def get(self, *args, **kwargs):
+        context = {
+            'produto': get_object_or_404(models.Produto, pk=self.kwargs.get('pk'))
+        }
+        return render(self.request, self.template_name, context)
+
+
 
 # Categorias
-
 
 class AdicionarCategoria(LoginRequiredMixin, View):
     template_name = 'loja/add_categoria.html'
@@ -55,6 +65,11 @@ class AdicionarCategoria(LoginRequiredMixin, View):
             return self.renderizar
 
         self.addcategoria_form.save()
+
+        messages.success(
+            self.request,
+            'Categoria criada com sucesso!', 
+        )
 
         return redirect('loja:dashboard_categorias')
 
@@ -87,6 +102,11 @@ class EditarCategoria(LoginRequiredMixin, View):
         self.categoria.nome = self.addcategoria_form['nome'].value()
         self.categoria.save()
 
+        messages.success(
+            self.request,
+            'Categoria criada com sucesso!', 
+        )
+
         return redirect('loja:dashboard_categorias')
 
 
@@ -104,11 +124,13 @@ class DashboardCategorias(LoginRequiredMixin, ListView):
     model = models.Categoria
     template_name = 'loja/categorias_dashboard.html'
     paginate_by = 15
-    filterset_class = filters.DashboardFilterSet
+    filterset_class = filters.CategoriaFilterSet
+    ordering = ['nome', ]
+
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, placeholder='Buscar Categorias')
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
     def get_context_data(self, *args, **kwargs):
@@ -141,6 +163,11 @@ class AdicionarProduto(LoginRequiredMixin, View):
             return self.renderizar
 
         self.addproduto_form.save()
+
+        messages.success(
+            self.request,
+            'Produto adicionado com sucesso!', 
+        )
 
         return redirect('loja:dashboard_produtos')
 
@@ -186,7 +213,6 @@ def excluir_produto(request, pk):
     if request.is_ajax():
         if request.POST:
             produto = get_object_or_404(models.Produto, pk=pk)
-            os.remove(produto.foto.path)
             produto.delete()
 
             return JsonResponse('success', safe=False)
@@ -196,11 +222,12 @@ class DashboardProdutos(LoginRequiredMixin, ListView):
     model = models.Produto
     template_name = 'loja/produtos_dashboard.html'
     paginate_by = 15
-    filterset_class = filters.DashboardFilterSet
+    filterset_class = filters.ProdutoFilterSet
+    ordering = ['nome', ]
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        self.filterset = self.filterset_class(self.request.GET, queryset=queryset, placeholder='Buscar Produtos')
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
     def get_context_data(self, *args, **kwargs):

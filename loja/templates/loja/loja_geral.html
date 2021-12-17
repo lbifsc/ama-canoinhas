@@ -3,83 +3,74 @@
 {% load static %}
 
 {% block conteudo %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-4 mb-4">
-            <div class="product-card card">
-                <div class="card-header d-flex">
-                    <div class="discount-tag-card rounded"><span class="discount-tag-value">25%</span><span>Off</span>
+<section class="section-top">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-content">
+                    <div class="card-header col-lg-12 text-center section-title">
+                        <h2>Loja</h2>
+                        <div class="divider mx-auto my-4"></div>
                     </div>
-                    <div class="remaining-tag-card border border-primary rounded">
-                        <span>Restam</span><span class="remaining-tag-value">25</span><span>Unid.</span>
+                    <div class="row justify-content-center">
+
+                        {% for produto in produtos %}
+                        <div class="col-md-4 mb-4 mt-4">
+                            <a href="{% url 'loja:loja_item' produto.pk %}">
+                                <div class="product-card card shadow-lg">
+                                    <div class="card-header d-flex">
+                                        <div class="discount-tag-card rounded"><span class="discount-tag-value">25%</span><span>Off</span>
+                                        </div>
+                                        <div class="remaining-tag-card border border-primary rounded">
+                                            <span>Restam</span><span class="remaining-tag-value">{{ produto.quantidade }}</span><span>Unid.</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body rounded">
+                                        <div class="product-image">
+                                            <img src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg">
+                                        </div>
+                                        <div class="product-title">
+                                            <h3 class="card-title"> {{ produto.nome }}</h3>
+                                        </div>
+                                        <div class="product-prices">
+                                            <p class="product-previous-value">R$ {{ produto.preco }}</p>
+                                            <p class="product-current-value">R$ {{ produto.preco_promocional }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+
+                        <div class="col-md-4 mb-4 mt-4">
+                            <div class="product-card card shadow-lg">
+                                <div class="card-header d-flex">
+                                    <div class="discount-tag-card rounded"><span class="discount-tag-value">25%</span><span>Off</span>
+                                    </div>
+                                    <div class="remaining-tag-card border border-primary rounded">
+                                        <span>Restam</span><span class="remaining-tag-value">25</span><span>Unid.</span>
+                                    </div>
+                                </div>
+                                <div class="card-body rounded">
+                                    <a href="{% url 'loja:loja_item' 1 %}">
+                                        <div class="product-image">
+                                            <img src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg">
+                                        </div>
+                                        <div class="product-title">
+                                            <h3 class="card-title">Card title</h3>
+                                        </div>
+                                        <div class="product-prices">
+                                            <p class="product-previous-value">R$ 80,00</p>
+                                            <p class="product-current-value">R$ 70,00</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body rounded">
-                    <a href="{% url 'loja:loja_item' %}">
-                        <div class="product-image">
-                            <img src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg">
-                        </div>
-                        <div class="product-title">
-                            <h3 class="card-title">Card title</h3>
-                        </div>
-                        <div class="product-prices">
-                            <p class="product-previous-value">R$ 80,00</p>
-                            <p class="product-current-value">R$ 70,00</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="product-card card">
-                <div class="card-header d-flex">
-                    <div class="discount-tag-card rounded"><span class="discount-tag-value">25%</span><span>Off</span>
-                    </div>
-                    <div class="remaining-tag-card border border-primary rounded">
-                        <span>Restam</span><span class="remaining-tag-value">25</span><span>Unid.</span>
-                    </div>
-                </div>
-                <div class="card-body rounded">
-                    <a href="item">
-                        <div class="product-image">
-                            <img src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg">
-                        </div>
-                        <div class="product-title">
-                            <h3 class="card-title">Card title</h3>
-                        </div>
-                        <div class="product-prices">
-                            <p class="product-previous-value">R$ 80,00</p>
-                            <p class="product-current-value">R$ 70,00</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="product-card card">
-                <div class="card-header d-flex">
-                    <div class="discount-tag-card rounded"><span class="discount-tag-value">25%</span><span>Off</span>
-                    </div>
-                    <div class="remaining-tag-card border border-primary rounded">
-                        <span>Restam</span><span class="remaining-tag-value">25</span><span>Unid.</span>
-                    </div>
-                </div>
-                <div class="card-body rounded">
-                    <a href="item">
-                        <div class="product-image">
-                            <img src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg">
-                        </div>
-                        <div class="product-title">
-                            <h3 class="card-title">Card title</h3>
-                        </div>
-                        <div class="product-prices">
-                            <p class="product-previous-value">R$ 80,00</p>
-                            <p class="product-current-value">R$ 70,00</p>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock conteudo %}

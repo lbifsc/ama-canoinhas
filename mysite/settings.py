@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ama',
     'loja',
-
     'crispy_forms',
     'django_summernote',
     'django_filters',

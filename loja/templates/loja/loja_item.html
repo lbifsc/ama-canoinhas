@@ -3,122 +3,130 @@
 {% load static %}
 
 {% block conteudo %}
-<div class="container">
-    <div class="product-detail">
-        <div class="row">
-            <div class="offset-md-1 col-md-5">
-                <div class="product-detail-image mainImgContainer">
-                    <img id="mainProductImage" class="content" src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg" />
-                </div>
-            </div>
-            <div class="col">
-                <div class="product-detail-card">
-                    <div class="product-detail-title">
-                        <h2>Item Title</h2>
-                    </div>
-                </div>
-                <div class="product-detail-prices">
-                    <p class="product-previous-value">R$ 80,00</p>
-                    <p class="product-current-value">R$ 70,00</p>
-                </div>
-                <div class="product-detail-alt-images">
-                    <ul class="product-detail-list-images">
-                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
-                                src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg"></li>
-                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
-                                src="https://9a4cdd8e5789bb85.cdn.gocache.net/palaciodot/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-branca-20118_1.jpg"></li>
-                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
-                                src="https://img.elo7.com.br/product/zoom/2414FC6/camiseta-lisa-100-algodao-30-1-verde-verde.jpg"></li>
-                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
-                                src="https://a-static.mlcdn.com.br/618x463/camiseta-masculina-basica-malwee-preta-gola-redonda-g/gabrielagarcianunes/388024aa875e11eb8cfa4201ac1850e0/7a2acc5953047a6bb37878461de33aed.jpg"></li>
-                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
-                                src="https://www.punkstein.com/loja/34722-thickbox_default/camiseta-roxa-sem-estampa.jpg"></li>
-                    </ul>
-
-                </div>
-                <div class="product-detail-contact">
-                    <a href="">
-                        <button class="contact-button rounded">
-                            <img src="https://logodownload.org/wp-content/uploads/2015/04/whatsapp-logo-1.png"
-                                class="contact-icon rounded" />Entre em contato</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-1 col-md-5">
-                <div class="product-detail-info">
-                    <div class="product-detail-title">Detalhes</div>
-                    <div class="product-detail-content">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th>
-                                        Marca</th>
-                                    <td>
-                                        <span>AMA</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Modelo</th>
-                                    <td>
-                                        <span>Básica</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Desenho do tecido</th>
-                                    <td>
-                                        <span>Sem Estampa</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h3>Guia de tamanhos</h3>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Tamanho</th>
-                                    <th>BR</th>
-                                    <th>Altura</th>
-                                    <th>Contorno</th>
-                                    <th>Manga</th>
-                                    <th>Cintura</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span>P</span></td>
-                                    <td><span>34-36</span></td>
-                                    <td><span>72 cm</span></td>
-                                    <td><span>14 cm</span></td>
-                                    <td><span>23 cm</span></td>
-                                    <td><span>50 cm</span></td>
-                                </tr>
-                                <tr>
-                                    <td><span>M</span></td>
-                                    <td><span>38-40</span></td>
-                                    <td><span>75 cm</span></td>
-                                    <td><span>15 cm</span></td>
-                                    <td><span>24 cm</span></td>
-                                    <td><span>52 cm</span></td>
-                                </tr>
-                                <tr>
-                                    <td><span>G</span></td>
-                                    <td><span>40-42</span></td>
-                                    <td><span>78 cm</span></td>
-                                    <td><span>16 cm</span></td>
-                                    <td><span>25 cm</span></td>
-                                    <td><span>54 cm</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+<section class="section-top">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <div class="card-content">
+                    <div class="product-detail">
+                        <div class="row">
+                            <div class="offset-md-1 col-md-5">
+                                <div class="product-detail-image mainImgContainer">
+                                    <img id="mainProductImage" class="content" src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="product-detail-card">
+                                    <div class="product-detail-title">
+                                        <h2>{{produto.nome}}</h2>
+                                    </div>
+                                </div>
+                                <div class="product-detail-prices">
+                                    <p class="product-previous-value">R$ {{produto.preco}}</p>
+                                    <p class="product-current-value">R$ {{produto.preco_promocional}}</p>
+                                </div>
+                                <div class="product-detail-alt-images">
+                                    <ul class="product-detail-list-images">
+                                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
+                                            src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg"></li>
+                                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
+                                            src="https://9a4cdd8e5789bb85.cdn.gocache.net/palaciodot/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/c/a/camiseta-branca-20118_1.jpg"></li>
+                                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
+                                            src="https://img.elo7.com.br/product/zoom/2414FC6/camiseta-lisa-100-algodao-30-1-verde-verde.jpg"></li>
+                                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
+                                            src="https://a-static.mlcdn.com.br/618x463/camiseta-masculina-basica-malwee-preta-gola-redonda-g/gabrielagarcianunes/388024aa875e11eb8cfa4201ac1850e0/7a2acc5953047a6bb37878461de33aed.jpg"></li>
+                                        <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
+                                            src="https://www.punkstein.com/loja/34722-thickbox_default/camiseta-roxa-sem-estampa.jpg"></li>
+                                    </ul>
+                                </div>
+                                <div class="product-detail-contact">
+                                    <a href="">
+                                        <button class="contact-button rounded">
+                                            <img src="https://logodownload.org/wp-content/uploads/2015/04/whatsapp-logo-1.png"
+                                            class="contact-icon rounded" />Entre em contato</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="offset-md-1 col-md-5">
+                                <div class="product-detail-info">
+                                    <div class="product-detail-title">Detalhes</div>
+                                    <div class="product-detail-content">
+                                        <p>{{produto.descricao}}</p>
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>
+                                                    Marca</th>
+                                                    <td>
+                                                        <span>AMA</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                    Modelo</th>
+                                                    <td>
+                                                        <span>Básica</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                    Desenho do tecido</th>
+                                                    <td>
+                                                        <span>Sem Estampa</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3>Guia de tamanhos</h3>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tamanho</th>
+                                                    <th>BR</th>
+                                                    <th>Altura</th>
+                                                    <th>Contorno</th>
+                                                    <th>Manga</th>
+                                                    <th>Cintura</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span>P</span></td>
+                                                    <td><span>34-36</span></td>
+                                                    <td><span>72 cm</span></td>
+                                                    <td><span>14 cm</span></td>
+                                                    <td><span>23 cm</span></td>
+                                                    <td><span>50 cm</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>M</span></td>
+                                                    <td><span>38-40</span></td>
+                                                    <td><span>75 cm</span></td>
+                                                    <td><span>15 cm</span></td>
+                                                    <td><span>24 cm</span></td>
+                                                    <td><span>52 cm</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>G</span></td>
+                                                    <td><span>40-42</span></td>
+                                                    <td><span>78 cm</span></td>
+                                                    <td><span>16 cm</span></td>
+                                                    <td><span>25 cm</span></td>
+                                                    <td><span>54 cm</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script src="{% static 'js/store_item.js'%}"></script>
-{% endblock conteudo %}
+</section>
+                        <script src="{% static 'js/store_item.js'%}"></script>
+                        {% endblock conteudo %}

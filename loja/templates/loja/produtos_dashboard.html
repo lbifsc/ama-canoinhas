@@ -4,19 +4,18 @@
 {% block dashboard_content %}
     <div class="row">
         <div class="col-lg-12">
-            <form action="" method="get">
-                <div class="form-row">
-                    <div class="form-group col-lg-2">
-                        {{ filterset.form.ordenar }}
+            <form action="" method="GET" class="form-inline">
+                <div class="col-lg">
+                    <div class="d-flex justify-content-center bd-highlight mb-3">
+                        <div class="form-group col-lg-6">
+                            {{ filterset.form.nome }}
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn-sm btn-primary" value="Buscar" style="height: 100%;">
+                        </div>
                     </div>
-                    <div class="form-group col-lg-9">
-                        {{ filterset.form.buscar }}
-                    </div>
-                    <div class="form-group col-lg-1">
-                        <button class="btn-sm btn-primary h-100 w-100" type="submit">Filtrar</button>
-                    </div>
-                </div>  
-            </form>
+                </div>
+            </form> 
         </div>
     </div>
     <div class="row col-lg-auto">
@@ -30,10 +29,15 @@
                 <div class="card shadow-lg">
                     <div class="card-content">
                         <div class="card-header" style="height: 200px;">
-                            <img src="{{ produto.foto.url }}" alt="{{ produto }}" class="img-fluid mx-auto d-block h-100 w-auto">
+                            <img src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg" class="img-fluid mx-auto d-block h-100 w-auto">
+<!--                           <img src="{{ produto.foto.url }}" alt="{{ produto }}" class="img-fluid mx-auto d-block h-100 w-auto"> -->
                         </div>
-                        <div class="card-body">
-                                <h5>{{ produto }}</h5>
+                        <div class="card-body text-justify">
+                                <h5 class="mb-4">{{ produto }}</h5>
+                                <div style="border-bottom:1px solid darkgrey;"></div>
+                                <p class="mb-0 mt-4">Quantidade: {{ produto.quantidade }}</p>
+                                <p class="mb-0">Preço: {{ produto.preco }}</p>
+                                <p class="mb-0">Promoção: {{ produto.preco_promocional }}</p>
                             </a>
                         </div>
                         <div class="card-footer">
