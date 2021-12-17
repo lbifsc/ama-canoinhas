@@ -70,4 +70,7 @@ class CategoriaForm(forms.ModelForm):
             Row(
                 Column('nome', css_class='col-lg-12'),
             ),
+            ButtonHolder(
+                Submit('submit', 'Salvar', css_class='mb-3')
+            ),
         )
