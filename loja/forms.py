@@ -30,7 +30,6 @@ class ProdutoForm(forms.ModelForm):
     )
 
     descricao = forms.CharField(
-        max_length=150, 
         required=True, 
         label='Descrição:',
         widget=SummernoteWidget(),
