@@ -1,23 +1,40 @@
 from . import models
 from django import forms
-from django.utils import timezone
-from .models import Produto, Categoria
+from .models import Categoria
 from crispy_forms.helper import FormHelper
+from django_summernote.widgets import SummernoteWidget
 from crispy_forms.layout import ButtonHolder, Layout, Row, Column, Submit
 
 class ProdutoForm(forms.ModelForm):
-    nome = forms.CharField(max_length=150, required=True, label='Nome:',)
-    categoria = forms.ModelChoiceField(Categoria.objects.all())
+    nome = forms.CharField(
+        max_length=150, 
+        required=True, 
+        label='Nome:',
+    )
+    
+    categoria = forms.ModelChoiceField(
+        Categoria.objects.all()
+    )
+    
     quantidade = forms.IntegerField()
+    
     preco = forms.DecimalField(
         decimal_places=2, 
         max_digits=5,
+        label='Preço',
     )
     preco_promocional = forms.DecimalField(
         decimal_places=2, 
         max_digits=5, 
+        label='Preço Promocional:',
     )
-    descricao = forms.CharField(max_length=150, required=True, label='descricao:',)
+
+    descricao = forms.CharField(
+        max_length=150, 
+        required=True, 
+        label='Descrição:',
+        widget=SummernoteWidget(),
+    )
 
     class Meta:
         model = models.Produto
@@ -31,19 +48,13 @@ class ProdutoForm(forms.ModelForm):
 
         self.helper.layout = Layout(
             Row(
-                Column('nome', css_class='col-lg-12'),
+                Column('nome', css_class='col-lg-8'),
+                Column('categoria', css_class='col-lg-4'),
             ),
             Row(
-                Column('categoria', css_class='col-lg-12'),
-            ),
-            Row(
-                Column('quantidade', css_class='col-lg-12'),
-            ),
-            Row(
-                Column('preco', css_class='col-lg-12'),
-            ),
-            Row(
-                Column('preco_promocional', css_class='col-lg-12'),
+                Column('quantidade', css_class='col-lg-4'),
+                Column('preco', css_class='col-lg-4'),
+                Column('preco_promocional', css_class='col-lg-4'),
             ),
             Row(
                 Column('descricao', css_class='col-lg-12'),
