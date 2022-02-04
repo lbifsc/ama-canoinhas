@@ -17,15 +17,17 @@
                             </div>
                             <div class="col">
                                 <div class="product-detail-card">
-                                    <div class="product-detail-title">
-                                        <h2>{{produto.nome}}</h2>
+                                    <div class="product-detail-title text-left mt-5">
+                                        <h2 class="title-color">{{produto.nome}}</h2>
+                                        <div class="divider mt-3"></div>
                                     </div>
                                 </div>
-                                <div class="product-detail-prices">
-                                    <p class="product-previous-value">R$ {{produto.preco}}</p>
-                                    <p class="product-current-value">R$ {{produto.preco_promocional}}</p>
+                                <div class="product-detail-prices text-left mt-3">
+                                    <p class="product-previous-value ">R$ {{produto.preco}}</p>
+                                    <p class="product-current-value ">R$ {{produto.preco_promocional}}</p>
+                                    <div class="divider mt-4"></div>
                                 </div>
-                                <div class="product-detail-alt-images">
+                                <div class="product-detail-alt-images mt-3">
                                     <ul class="product-detail-list-images">
                                         <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
                                             src="https://cdn.awsli.com.br/600x700/304/304285/produto/58025650/6f05c58c8d.jpg"></li>
@@ -38,8 +40,9 @@
                                         <li onclick="changeMainImage(this)" class="product-detail-list-item"><img
                                             src="https://www.punkstein.com/loja/34722-thickbox_default/camiseta-roxa-sem-estampa.jpg"></li>
                                     </ul>
+                                    <div class="divider mt-3"></div>
                                 </div>
-                                <div class="product-detail-contact">
+                                <div class="product-detail-contact mt-3">
                                     <a href="https://chat.whatsapp.com/IOiIg0en1u2ILUYclMvaBi">
                                         <button class="contact-button rounded">
                                             <img src="https://logodownload.org/wp-content/uploads/2015/04/whatsapp-logo-1.png"
@@ -51,73 +54,10 @@
                         <div class="row">
                             <div class="offset-md-1 col-md-5">
                                 <div class="product-detail-info">
-                                    <div class="product-detail-title">Detalhes</div>
+                                    <h2 class="title-color">Detalhes</h2>
+                                    <div class="divider mt-3"></div>
                                     <div class="product-detail-content">
-                                        <p>{{produto.descricao}}</p>
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <th>
-                                                    Marca</th>
-                                                    <td>
-                                                        <span>AMA</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>
-                                                    Modelo</th>
-                                                    <td>
-                                                        <span>Básica</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>
-                                                    Desenho do tecido</th>
-                                                    <td>
-                                                        <span>Sem Estampa</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <h3>Guia de tamanhos</h3>
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tamanho</th>
-                                                    <th>BR</th>
-                                                    <th>Altura</th>
-                                                    <th>Contorno</th>
-                                                    <th>Manga</th>
-                                                    <th>Cintura</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><span>P</span></td>
-                                                    <td><span>34-36</span></td>
-                                                    <td><span>72 cm</span></td>
-                                                    <td><span>14 cm</span></td>
-                                                    <td><span>23 cm</span></td>
-                                                    <td><span>50 cm</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>M</span></td>
-                                                    <td><span>38-40</span></td>
-                                                    <td><span>75 cm</span></td>
-                                                    <td><span>15 cm</span></td>
-                                                    <td><span>24 cm</span></td>
-                                                    <td><span>52 cm</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span>G</span></td>
-                                                    <td><span>40-42</span></td>
-                                                    <td><span>78 cm</span></td>
-                                                    <td><span>16 cm</span></td>
-                                                    <td><span>25 cm</span></td>
-                                                    <td><span>54 cm</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <p>{{produto.descricao | safe}}</p>
                                     </div>
                                 </div>
                             </div>

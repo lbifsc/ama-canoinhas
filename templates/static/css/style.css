@@ -1549,10 +1549,11 @@ a:focus {
 .product-previous-value{
   color: grey;
   text-decoration: line-through;
+  font-size: 30px;
 }
 
 .product-current-value{
-  font-size: 40px;
+  font-size: 50px;
   color: #223A66;
   font-weight: bold;
 }
@@ -1580,6 +1581,9 @@ a:focus {
 .product-detail-image img{
   max-height: 100%;
   max-width: 100%;
+}
+
+.product-detail-prices {
 
 }
 
