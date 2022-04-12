@@ -54,6 +54,10 @@ DATABASES = {
 python manage.py makemigrations
 python manage.py migrate
 ```
+## Crie o usuário administrador:
+```
+python manage.py createsuperuser
+```
 ## Rodando o servidor de forma local:
 ### Observação: para iniciar o servidor é necessário ativar o ambiente virtual!
 ``
